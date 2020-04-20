@@ -317,7 +317,10 @@ public class GamePanel extends JPanel implements ActionListener {
                 figure.rotate();
             }
             if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {
-
+                if(figure.getMatrixY() + 3 < matrixH) {
+                    figure.setMatrixY(figure.getMatrixY() + 1);
+                }
+                repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 figure.move(1, matrixW);
