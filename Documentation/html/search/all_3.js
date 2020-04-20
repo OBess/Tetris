@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['getcounter_9',['getCounter',['../class_field.html#a6b7783d06efd47082a5fcd65d7d15aa3',1,'Field']]],
-  ['getfigure_10',['getFigure',['../class_field.html#a982a5f7768caa23b1d5c81fe5db2ed47',1,'Field::getFigure()'],['../class_figures.html#a19688222a7acd10c5c5fd9150552221b',1,'Figures::getFigure()']]],
-  ['getm_5fy_11',['getM_Y',['../class_figures.html#aedb7ce2d4f319cad5c70307f4c49d4f1',1,'Figures']]],
-  ['getsize_12',['getSize',['../class_figures.html#aa1221e97bfb9ed3854531ebe512ba5dc',1,'Figures']]],
-  ['getx_13',['getX',['../class_figures.html#a0c6603bd872df6f05e32bfbc92e6bab0',1,'Figures']]],
-  ['gety_14',['getY',['../class_figures.html#a418bd1da347e66755f6e789be8f0e94b',1,'Figures']]]
+  ['gamepanel_7',['GamePanel',['../classcom_1_1kn__110_1_1_game_panel.html',1,'com::kn_110']]],
+  ['gamepanel_2ejava_8',['GamePanel.java',['../_game_panel_8java.html',1,'']]],
+  ['getendgame_9',['getEndGame',['../classcom_1_1kn__110_1_1_game_panel.html#ae46dfd6cd797aa62e9f6e56f17efcb27',1,'com::kn_110::GamePanel']]],
+  ['getmuted_10',['getMuted',['../classcom_1_1kn__110_1_1_game_panel.html#aaa3cc823e68dd53cd5287170b6e55cac',1,'com::kn_110::GamePanel']]],
+  ['getpause_11',['getPause',['../classcom_1_1kn__110_1_1_game_panel.html#afa6197f76b20521397677fb52815a896',1,'com::kn_110::GamePanel']]]
 ];

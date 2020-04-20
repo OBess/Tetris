@@ -20,17 +20,24 @@
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.kn_110.Main" />
+      <option name="MAIN_CLASS_NAME" value="com.kn_110.Window" />
       <module name="Tetris" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -41,5 +48,35 @@
       <updated>1587386682721</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="18" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587393060819">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="18" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1587393060819" />
+    <state x="412" y="147" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1587393056111">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="412" y="147" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.728@0.0.1366.728" timestamp="1587393056111" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1587393202841">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1587393202841" />
+    <state width="1323" height="277" key="GridCell.Tab.0.bottom" timestamp="1587393202871">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="277" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1587393202871" />
+    <state width="1323" height="277" key="GridCell.Tab.0.center" timestamp="1587393202870">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="277" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1587393202870" />
+    <state width="1323" height="277" key="GridCell.Tab.0.left" timestamp="1587393202870">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="277" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1587393202870" />
+    <state width="1323" height="277" key="GridCell.Tab.0.right" timestamp="1587393202871">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="277" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1587393202871" />
   </component>
 </project>

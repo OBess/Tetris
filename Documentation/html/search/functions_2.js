@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['field_40',['Field',['../class_field.html#a3e804c92273d9159f413f227b535c672',1,'Field::Field()'],['../class_field.html#a9b7c98d21e1de5b95dc1ec7a6c93654f',1,'Field::Field(int width, int height, int size)']]],
-  ['figures_41',['Figures',['../class_figures.html#a402891d5894408558990ec37dd681ec9',1,'Figures']]]
+  ['highscoreeditor_33',['highScoreEditor',['../classcom_1_1kn__110_1_1_game_panel.html#af618f043af12ed835929711032fb80f5',1,'com::kn_110::GamePanel']]],
+  ['highscorelogic_34',['highScoreLogic',['../classcom_1_1kn__110_1_1_game_panel.html#ad533d192982446b4c430e9953c22a2ac',1,'com::kn_110::GamePanel']]]
 ];
