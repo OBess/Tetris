@@ -204,7 +204,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         }
     }
-
+//TEST
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!lost) {
