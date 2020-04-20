@@ -2,6 +2,7 @@ package com.kn_110;
 
 public class Figures {
     //----------------VARIABLES------------------
+    private int m_x, m_y;
     private String figure;
     //----------------/VARIABLES-----------------
 
@@ -85,4 +86,10 @@ public class Figures {
             " _ "
     };
     //----------------/BLOCKS--------------------
+
+
+    //-------------------PUBLIC--------------------
+    public String getFigure(){ return figure; }
+    public void setFigure(String figure){ this.figure = figure;}
+    //-------------------/PUBLIC-------------------
 }
