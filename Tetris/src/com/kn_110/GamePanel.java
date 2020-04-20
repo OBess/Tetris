@@ -21,9 +21,13 @@ public class GamePanel extends JPanel implements ActionListener {
     private int highScorePoints;
     private int scorePoints;
     private int delay;
-    private int W = 350;
-    private int H = 540;
+    private int W = 470;
+    private int H = 650;
     private int scale;
+    private int matrixH;
+    private int matrixW;
+
+    private String[] matrix;
 
     private boolean lost;
     private boolean pause;
@@ -115,6 +119,11 @@ public class GamePanel extends JPanel implements ActionListener {
         delay = 1000;
         scale = 30;
 
+        matrixH = getHeight() / scale;
+        matrixW = getWidth() / scale;
+        matrix = new String[matrixH];
+        resetMatrix();
+
         timer = new Timer(delay, this);
     }
     //-------------------/INI---------------------
@@ -159,12 +168,30 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     //------------------PAINT BLOCK------------------
-
+    private void paintGrid(Graphics g) {
+        for (int i = 0; i < matrixH; i++) {
+            for (int j = 0; j < matrixW; j++) {
+                if (matrix[i].charAt(j) == ' ') {
+                    g.setColor(new Color(88, 130, 125));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                    g.setColor(new Color(82, 84, 95, 255));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                }
+            }
+        }
+    }
     //------------------/PAINT BLOCK-----------------
 
 
     //------------------LOGIC BLOCK------------------
-
+    private void resetMatrix() {
+        for (int i = 0; i < matrixH; i++) {
+            matrix[i] = " ";
+            for (int j = 0; j < matrixW; j++) {
+                matrix[i] += " ";
+            }
+        }
+    }
     //------------------/LOGIC BLOCK-----------------
 
 
@@ -172,6 +199,7 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        paintGrid(g);
         if (!lost) {
 
         }

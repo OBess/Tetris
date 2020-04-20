@@ -150,7 +150,7 @@ class Window extends JFrame {
         setTitle("Tetris0.0");
         setDefaultCloseOperation(3);
         add(masterPanel);
-        setSize(720, 750);
+        setSize(699, 726);
         setVisible(true);
         //----------------------------/FRAME--------------------------------
 
