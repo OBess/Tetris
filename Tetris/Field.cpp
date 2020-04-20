@@ -37,8 +37,7 @@ void Field::incrementY() {
 
 void Field::changePosX(int dir) {
 	if ((figures.getX() + dir >= 0 && dir < 0) || (figures.getX() + 3 < m_width && dir > 0)) {
-		if(field[figures.getY()][figures.getX() + dir] != '_')
-			figures.setX(figures.getX() + dir);
+		figures.setX(figures.getX() + dir);
 	}
 }
 

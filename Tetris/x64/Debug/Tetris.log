@@ -1,19 +1,16 @@
 ﻿  Field.cpp
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,47): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,47): warning C4244:         with
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,47): warning C4244:         [
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,47): warning C4244:             T=float
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,47): warning C4244:         ]
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,41): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,41): warning C4244:         with
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,41): warning C4244:         [
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,41): warning C4244:             T=float
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(80,41): warning C4244:         ]
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(82,31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(82,24): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(86,31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  Tetris.cpp
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Field.cpp(86,24): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  Создание кода...
-D:\MY(Dima)\Projects\SFML\Tetris\Tetris\Tetris.cpp(23,47): warning C4244: =: преобразование "sf::Int32" в "float", возможна потеря данных
-  Tetris.vcxproj -> D:\MY(Dima)\Projects\SFML\Tetris\Tetris\x64\Debug\Tetris.exe
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,47): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,47): warning C4244:         with
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,47): warning C4244:         [
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,47): warning C4244:             T=float
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,47): warning C4244:         ]
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,41): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,41): warning C4244:         with
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,41): warning C4244:         [
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,41): warning C4244:             T=float
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(79,41): warning C4244:         ]
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(81,31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(81,24): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(85,31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\Field.cpp(85,24): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Tetris.vcxproj -> D:\MY(Dima)\Projects\GitRepositories\Games\Tetris\Tetris\x64\Debug\Tetris.exe
