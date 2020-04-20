@@ -169,7 +169,7 @@ class Window extends JFrame {
 
 
     public static void main(final String[] args) {
-        // just calling constructor in main
+
         new Window();
     }
 }

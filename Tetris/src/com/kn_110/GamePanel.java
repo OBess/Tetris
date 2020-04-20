@@ -28,11 +28,17 @@ public class GamePanel extends JPanel implements ActionListener {
     private int matrixW;
 
     private String[] matrix;
+    private String[] copyMatrix;
 
+
+    private boolean left;
+    private boolean right;
     private boolean lost;
     private boolean pause;
     private boolean inited;
     private boolean muted;
+
+
     //----------------/VARIABLES------------------
 
 
@@ -42,6 +48,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private Timer timer;
     private JLabel score = new JLabel();
     private JLabel highScore = new JLabel();
+    private Figures figure = new Figures();
     //------------------/OBJECTS------------------
 
 
@@ -116,15 +123,17 @@ public class GamePanel extends JPanel implements ActionListener {
         inited = true;
         muted = false;
 
-        delay = 1000;
+        delay = 100;
         scale = 30;
 
         matrixH = getHeight() / scale;
         matrixW = getWidth() / scale;
         matrix = new String[matrixH];
-        resetMatrix();
+        copyMatrix = new String[matrixH];
+        initMatrix();
 
         timer = new Timer(delay, this);
+        timer.start();
     }
     //-------------------/INI---------------------
 
@@ -176,19 +185,52 @@ public class GamePanel extends JPanel implements ActionListener {
                     g.fillRect(j * scale, i * scale, scale, scale);
                     g.setColor(new Color(82, 84, 95, 255));
                     g.drawRect(j * scale, i * scale, scale, scale);
+                } else {
+                    g.setColor(new Color(22, 222, 197));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                    g.setColor(new Color(82, 84, 95, 255));
+                    g.drawRect(j * scale, i * scale, scale, scale);
                 }
             }
         }
+
     }
+
+
     //------------------/PAINT BLOCK-----------------
 
 
     //------------------LOGIC BLOCK------------------
-    private void resetMatrix() {
+    private void initMatrix() {
         for (int i = 0; i < matrixH; i++) {
             matrix[i] = " ";
+            copyMatrix[i] = " ";
             for (int j = 0; j < matrixW; j++) {
                 matrix[i] += " ";
+                copyMatrix[i] += " ";
+            }
+        }
+    }
+
+    private void resetMatrix(){
+        for (int i = 0; i < matrixH; i++) {
+            matrix[i] = new String(copyMatrix[i]);
+        }
+    }
+
+    private void remBlock(){
+        for (int i = 0; i < matrixH; i++) {
+            copyMatrix[i] = new String(matrix[i]);
+        }
+    }
+
+    private void visualizeBlock() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+                    matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j) + '1'
+                            + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1, matrix[i + figure.getMatrixY()].length());
+                }
             }
         }
     }
@@ -199,16 +241,24 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        resetMatrix();
         paintGrid(g);
         if (!lost) {
-
+            visualizeBlock();
+            paintGrid(g);
         }
     }
-//TEST
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!lost) {
-
+            if(figure.getMatrixY() + 3 < matrixH) {
+                figure.setMatrixY(figure.getMatrixY() + 1);
+            }
+            else{
+                remBlock();
+                figure.reset();
+            }
         }
         repaint();
     }
@@ -260,16 +310,18 @@ public class GamePanel extends JPanel implements ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
-
+                figure.move(-1, matrixW);
+                repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_SPACE)) {
-
+                figure.rotate();
             }
             if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {
 
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
-
+                figure.move(1, matrixW);
+                repaint();
             }
         }
     }
