@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['randomfigure_50',['randomFigure',['../class_figures.html#aa3006a9de9e4e9e57d11dd66bf398ae2',1,'Figures']]],
-  ['resetfield_51',['resetField',['../class_field.html#af432b45834b3f4113e0fd79374cbc67f',1,'Field']]],
-  ['resetfigure_52',['resetFigure',['../class_field.html#ad92e684f60a6844ab971fe12118f1d23',1,'Field']]],
-  ['rotate_53',['rotate',['../class_field.html#a76247463619490ce22638feb284a313b',1,'Field']]]
+  ['scoreeditor_55',['scoreEditor',['../classcom_1_1kn__110_1_1_game_panel.html#af197fa5b2a9a5706e8c465ebd999f583',1,'com::kn_110::GamePanel']]],
+  ['setfigure_56',['setFigure',['../classcom_1_1kn__110_1_1_figures.html#aa07df60ce86734108e2bf3c05826a616',1,'com::kn_110::Figures']]],
+  ['setmatrixy_57',['setMatrixY',['../classcom_1_1kn__110_1_1_figures.html#a09c08b70e09ea795a4586174ce041eca',1,'com::kn_110::Figures']]]
 ];
