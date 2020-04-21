@@ -239,20 +239,23 @@ public class GamePanel extends JPanel implements ActionListener {
         boolean moveUp = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
-                    if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') {
+                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ' && i + figure.getMatrixY() + 1 < matrixH) {
+                    if (matrix[i + figure.getMatrixY() + 1].charAt(j + figure.getMatrixX()) != ' ') {
                         moveUp = true;
                         if (i + 1 < 3) {
-                            if (figure.getFigure()[i + 1].charAt(j) != ' ') {
+                            if (figure.getFigure()[i + 1].charAt(j) != ' ')
                                 moveUp = false;
-                            }
+                            else
+                                break;
                         }
                     }
                 }
             }
+            if(moveUp)
+                break;
         }
         if (moveUp) {
-            figure.setMatrixY(figure.getMatrixY() - 1);
+            figure.setMatrixY(figure.getMatrixY());
             resetMatrix();
             visualizeBlock();
             remBlock();
@@ -261,27 +264,30 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void collisionX(int dir) {
-        boolean moveDown = false;
+        boolean move = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
                     if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') {
-                        moveDown = true;
+                        move = true;
                         if (j + 1 < 3) {
                             if (figure.getFigure()[i].charAt(j + 1) != ' ') {
-                                moveDown = false;
+                                move = false;
                             }
                         }else if(j - 1 >= 0){
                             if (figure.getFigure()[i].charAt(j - 1) != ' ') {
-                                moveDown = false;
+                                move = false;
                             }
                         }
                     }
                 }
             }
         }
-        if (moveDown)
+        if (move) {
             figure.setMatrixX(figure.getMatrixX() - dir);
+            resetMatrix();
+            visualizeBlock();
+        }
     }
     //------------------/LOGIC BLOCK-----------------
 
