@@ -12,36 +12,44 @@ public class Figures {
 
 
     //----------------CONSTRUCTOR-----------------
-    Figures(){
+    Figures() {
         randomizer();
     }
     //----------------/CONSTRUCTOR----------------
 
 
     //-------------------PUBLIC--------------------
-    public String[] getFigure(){ return figure; }
+    public String[] getFigure() {
+        return figure;
+    }
 
-    public void setFigure(String[] figure){ this.figure = figure;}
+    public void setFigure(String[] figure) {
+        this.figure = figure;
+    }
 
-    public void setMatrixY(int y){
+    public void setMatrixY(int y) {
         matrixY = y;
     }
 
-    public int getMatrixX(){
+    public void setMatrixX(int x) {
+        matrixX = x;
+    }
+
+    public int getMatrixX() {
         return matrixX;
     }
 
-    public int getMatrixY(){
+    public int getMatrixY() {
         return matrixY;
     }
 
-    public int getMatrixYRotate(){
+    public int getMatrixYRotate() {
         return matrixYRotate;
     }
 
-    public void randomizer(){
+    public void randomizer() {
         int random = new Random().nextInt(7);
-        switch (random){
+        switch (random) {
             case 0:
                 figure = I;
                 break;
@@ -65,38 +73,39 @@ public class Figures {
                 break;
         }
 
-
+        random = new Random().nextInt(figure.length);
+        for (int i = 0; i < random; i++)
+            rotate();
     }
 
-    public void move(int dir, int width){
-        if(dir < 0){
+    public void move(int dir, int width) {
+        if (dir < 0) {
             boolean moving = true;
-            for(int i = 0; i < 3; i++){
-                if(figure[i + matrixYRotate].charAt(0) != ' ')
+            for (int i = 0; i < 3; i++) {
+                if (figure[i + matrixYRotate].charAt(0) != ' ')
                     moving = false;
             }
-            if(moving && matrixX + dir >= -1)
+            if (moving && matrixX + dir >= -1)
                 matrixX += dir;
             else if (matrixX + dir >= 0)
                 matrixX += dir;
-        }else if(matrixX + 3 < width && dir > 0){
+        } else if (matrixX + 3 < width && dir > 0) {
             matrixX += dir;
         }
     }
 
-    public void reset(){
+    public void reset() {
         matrixY = 0;
+        matrixYRotate = 0;
         randomizer();
     }
 
-    public void rotate(){
-        if(matrixX == -1)
+    public void rotate() {
+        if (matrixX == -1)
             matrixX = 0;
-        if(matrixYRotate+3 < figure.length){
-            matrixYRotate+=3;
-            System.out.println("HI");
-        }
-        else {
+        if (matrixYRotate + 3 < figure.length) {
+            matrixYRotate += 3;
+        } else {
             matrixYRotate = 0;
         }
     }

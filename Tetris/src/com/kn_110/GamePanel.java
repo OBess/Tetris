@@ -212,15 +212,15 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    private void resetMatrix(){
+    private void resetMatrix() {
         for (int i = 0; i < matrixH; i++) {
-            matrix[i] = new String(copyMatrix[i]);
+            matrix[i] = copyMatrix[i];
         }
     }
 
-    private void remBlock(){
+    private void remBlock() {
         for (int i = 0; i < matrixH; i++) {
-            copyMatrix[i] = new String(matrix[i]);
+            copyMatrix[i] = matrix[i];
         }
     }
 
@@ -233,6 +233,55 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
         }
+    }
+
+    private void collisionY() {
+        boolean moveUp = false;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+                    if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') {
+                        moveUp = true;
+                        if (i + 1 < 3) {
+                            if (figure.getFigure()[i + 1].charAt(j) != ' ') {
+                                moveUp = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (moveUp) {
+            figure.setMatrixY(figure.getMatrixY() - 1);
+            resetMatrix();
+            visualizeBlock();
+            remBlock();
+            figure.reset();
+        }
+    }
+
+    private void collisionX(int dir) {
+        boolean moveDown = false;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+                    if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') {
+                        moveDown = true;
+                        if (j + 1 < 3) {
+                            if (figure.getFigure()[i].charAt(j + 1) != ' ') {
+                                moveDown = false;
+                            }
+                        }else if(j - 1 >= 0){
+                            if (figure.getFigure()[i].charAt(j - 1) != ' ') {
+                                moveDown = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (moveDown)
+            figure.setMatrixX(figure.getMatrixX() - dir);
     }
     //------------------/LOGIC BLOCK-----------------
 
@@ -252,10 +301,10 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!lost) {
-            if(figure.getMatrixY() + 3 < matrixH) {
+            if (figure.getMatrixY() + 3 < matrixH) {
                 figure.setMatrixY(figure.getMatrixY() + 1);
-            }
-            else{
+                collisionY();
+            } else {
                 remBlock();
                 figure.reset();
             }
@@ -305,25 +354,27 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    // controls of snake
     class gameKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
                 figure.move(-1, matrixW);
+                collisionX(-1);
                 repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_SPACE)) {
                 figure.rotate();
             }
             if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {
-                if(figure.getMatrixY() + 3 < matrixH) {
+                if (figure.getMatrixY() + 3 < matrixH) {
                     figure.setMatrixY(figure.getMatrixY() + 1);
+                    collisionY();
                 }
                 repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 figure.move(1, matrixW);
+                collisionX(1);
                 repaint();
             }
         }
