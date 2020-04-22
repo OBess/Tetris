@@ -28,26 +28,10 @@
       <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$pauseGameOver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$pauseGameOver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel.class" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Window.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="169" column="5" selection-start-line="169" selection-start-column="5" selection-end-line="172" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -58,13 +42,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java" />
-      </list>
-    </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-10" />
@@ -125,22 +102,13 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="Tetris" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.kn_110.Window" />
       <module name="Tetris" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SvnConfiguration">
@@ -156,59 +124,18 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-5" y="0" width="811" height="906" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info id="Image Layers" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info id="Capture Tool" />
-      <window_info id="Designer" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.249668" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-    </layout>
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587390839617">
@@ -223,29 +150,33 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="202" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1587390837098" />
+    <state x="531" y="252" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1587557762098">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="531" y="252" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1587557762098" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1587388380041">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587388380041" />
-    <state width="1323" height="61" key="GridCell.Tab.0.bottom" timestamp="1587557422164">
+    <state width="1323" height="61" key="GridCell.Tab.0.bottom" timestamp="1587557859549">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="61" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1587557422164" />
+    <state width="1323" height="61" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1587557859549" />
     <state width="1493" height="216" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587408415442" />
-    <state width="1323" height="61" key="GridCell.Tab.0.center" timestamp="1587557422163">
+    <state width="1323" height="61" key="GridCell.Tab.0.center" timestamp="1587557859549">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="61" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1587557422163" />
+    <state width="1323" height="61" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1587557859549" />
     <state width="1493" height="216" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587408415442" />
-    <state width="1323" height="61" key="GridCell.Tab.0.left" timestamp="1587557422163">
+    <state width="1323" height="61" key="GridCell.Tab.0.left" timestamp="1587557859549">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="61" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1587557422163" />
+    <state width="1323" height="61" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1587557859549" />
     <state width="1493" height="216" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587408415442" />
-    <state width="1323" height="61" key="GridCell.Tab.0.right" timestamp="1587557422164">
+    <state width="1323" height="61" key="GridCell.Tab.0.right" timestamp="1587557859549">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="61" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1587557422164" />
+    <state width="1323" height="61" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1587557859549" />
     <state width="1493" height="216" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587408415442" />
     <state width="1493" height="216" key="GridCell.Tab.1.bottom" timestamp="1587408415255">
       <screen x="0" y="0" width="1536" height="824" />
@@ -271,15 +202,6 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587403308072" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="169" column="5" selection-start-line="169" selection-start-column="5" selection-end-line="172" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
