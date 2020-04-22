@@ -43,51 +43,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectFrameBounds">
     <option name="x" value="-10" />
     <option name="width" value="1622" />
     <option name="height" value="1812" />
   </component>
+=======
+>>>>>>> parent of e1f747e... Merge branch 'resnitchuk' into David'sChanges
   <component name="ProjectId" id="1ao3fUTXU9go4hhtKQs7WsC99vE" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Tetris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Tetris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Tetris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Tetris" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-              <item name="Tetris" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="kn_110" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -96,9 +60,6 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -203,6 +164,7 @@
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587403308072" />
   </component>
+<<<<<<< HEAD
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
@@ -278,4 +240,6 @@
       </state>
     </states>
   </component>
+=======
+>>>>>>> parent of e1f747e... Merge branch 'resnitchuk' into David'sChanges
 </project>
