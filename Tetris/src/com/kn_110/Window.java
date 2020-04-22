@@ -148,7 +148,7 @@ class Window extends JFrame {
 
         //----------------------------FRAME---------------------------------
         setTitle("Tetris0.0");
-        setDefaultCloseOperation(3);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(masterPanel);
         setSize(699, 726);
         setVisible(true);
@@ -169,7 +169,6 @@ class Window extends JFrame {
 
 
     public static void main(final String[] args) {
-
         new Window();
     }
 }

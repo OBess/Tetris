@@ -6,6 +6,7 @@ public class Figures {
     //----------------VARIABLES------------------
     private int matrixX;
     private int matrixY;
+    private int matrixWidth;
     private int matrixYRotate;
     private String[] figure;
     //----------------/VARIABLES-----------------
@@ -25,6 +26,10 @@ public class Figures {
 
     public void setFigure(String[] figure) {
         this.figure = figure;
+    }
+
+    public void setMatrixWidth(int matrixWidth) {
+        this.matrixWidth = matrixWidth;
     }
 
     public void setMatrixY(int y) {
@@ -89,8 +94,16 @@ public class Figures {
                 matrixX += dir;
             else if (matrixX + dir >= 0)
                 matrixX += dir;
-        } else if (matrixX + 3 < width && dir > 0) {
-            matrixX += dir;
+        } else if (dir > 0) {
+            boolean moving = true;
+            for (int i = 0; i < 3; i++) {
+                if (figure[i + matrixYRotate].charAt(2) != ' ')
+                    moving = false;
+            }
+            if (matrixX + 3 < width)
+                matrixX += dir;
+            else if (moving && matrixX + 2 < width)
+                matrixX += dir;
         }
     }
 
@@ -101,8 +114,10 @@ public class Figures {
     }
 
     public void rotate() {
-        if (matrixX == -1)
-            matrixX = 0;
+        if (matrixX < 0)
+            matrixX++;
+        if(matrixX + 3 > matrixWidth)
+            matrixX--;
         if (matrixYRotate + 3 < figure.length) {
             matrixYRotate += 3;
         } else {
@@ -114,93 +129,93 @@ public class Figures {
 
     //----------------BLOCKS---------------------
     private String[] I = {
-            " _ ",
-            " _ ",
-            " _ ",
+            " r ",
+            " r ",
+            " r ",
 
             "   ",
             "   ",
-            "___"
+            "rrr"
     };
 
     private String[] J = {
             "   ",
-            "_  ",
-            "___",
+            "g  ",
+            "ggg",
 
-            " __",
-            " _ ",
-            " _ ",
+            " gg",
+            " g ",
+            " g ",
 
             "   ",
-            "___",
-            "  _",
+            "ggg",
+            "  g",
 
-            " _ ",
-            " _ ",
-            "__ "
+            " g ",
+            " g ",
+            "gg "
     };
 
     private String[] L = {
             "   ",
-            "  _",
-            "___",
+            "  v",
+            "vvv",
 
-            " _ ",
-            " _ ",
-            " __",
+            " v ",
+            " v ",
+            " vv",
 
             "   ",
-            "___",
-            "_  ",
+            "vvv",
+            "v  ",
 
-            "__ ",
-            " _ ",
-            " _ "
+            "vv ",
+            " v ",
+            " v "
     };
 
     private String[] O = {
             "   ",
-            " __",
-            " __"
+            " yy",
+            " yy"
     };
 
     private String[] S = {
             "   ",
-            " __",
-            "__ ",
+            " bb",
+            "bb ",
 
-            " _ ",
-            " __",
-            "  _"
+            " b ",
+            " bb",
+            "  b"
     };
 
     private String[] T = {
             "   ",
-            " _ ",
-            "___",
+            " p ",
+            "ppp",
 
-            " _ ",
-            " __",
-            " _ ",
+            " p ",
+            " pp",
+            " p ",
 
             "   ",
-            "___",
-            " _ ",
+            "ppp",
+            " p ",
 
-            " _ ",
-            "__ ",
-            " _ "
+            " p ",
+            "pp ",
+            " p "
     };
 
     private String[] Z = {
             "   ",
-            "__ ",
-            " __",
+            "hh ",
+            " hh",
 
-            "  _",
-            " __",
-            " _ "
+            "  h",
+            " hh",
+            " h "
     };
     //----------------/BLOCKS--------------------
 

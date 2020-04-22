@@ -123,7 +123,7 @@ public class GamePanel extends JPanel implements ActionListener {
         inited = true;
         muted = false;
 
-        delay = 100;
+        delay = 500;
         scale = 30;
 
         matrixH = getHeight() / scale;
@@ -131,6 +131,9 @@ public class GamePanel extends JPanel implements ActionListener {
         matrix = new String[matrixH];
         copyMatrix = new String[matrixH];
         initMatrix();
+
+        figure.setMatrixX(getWidth() / 2 / scale - 1);
+        figure.setMatrixWidth(getWidth() / scale);
 
         timer = new Timer(delay, this);
         timer.start();
@@ -183,17 +186,35 @@ public class GamePanel extends JPanel implements ActionListener {
                 if (matrix[i].charAt(j) == ' ') {
                     g.setColor(new Color(88, 130, 125));
                     g.fillRect(j * scale, i * scale, scale, scale);
-                    g.setColor(new Color(82, 84, 95, 255));
-                    g.drawRect(j * scale, i * scale, scale, scale);
-                } else {
-                    g.setColor(new Color(22, 222, 197));
+                } else if (matrix[i].charAt(j) == 'r') {
+                    g.setColor(new Color(222, 62, 50));
                     g.fillRect(j * scale, i * scale, scale, scale);
-                    g.setColor(new Color(82, 84, 95, 255));
-                    g.drawRect(j * scale, i * scale, scale, scale);
+                }else if (matrix[i].charAt(j) == 'y') {
+                    g.setColor(new Color(222, 203, 86));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                }else if (matrix[i].charAt(j) == 'g') {
+                    g.setColor(new Color(112, 222, 130));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                }else if (matrix[i].charAt(j) == 'b') {
+                    g.setColor(new Color(58, 212, 222));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                }else if (matrix[i].charAt(j) == 'p') {
+                    g.setColor(new Color(219, 107, 222));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                }else if (matrix[i].charAt(j) == 'v') {
+                    g.setColor(new Color(32, 137, 222));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                }else if (matrix[i].charAt(j) == 'h') {
+                    g.setColor(new Color(163, 222, 30));
+                    g.fillRect(j * scale, i * scale, scale, scale);
+                }else{
+                    g.setColor(new Color(208, 222, 214));
+                    g.fillRect(j * scale, i * scale, scale, scale);
                 }
+                g.setColor(new Color(82, 84, 95, 255));
+                g.drawRect(j * scale, i * scale, scale, scale);
             }
         }
-
     }
 
 
@@ -228,8 +249,9 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
-                    matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j) + '1'
-                            + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1, matrix[i + figure.getMatrixY()].length());
+                    matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j)
+                            + figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j)
+                                + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1, matrix[i + figure.getMatrixY()].length());
                 }
             }
         }
@@ -242,14 +264,13 @@ public class GamePanel extends JPanel implements ActionListener {
                 if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ' && i + figure.getMatrixY() + 1 < matrixH) {
                     if (matrix[i + figure.getMatrixY() + 1].charAt(j + figure.getMatrixX()) != ' ') {
                         moveUp = true;
-                        if (i + 1 < 3) {
-                            if (figure.getFigure()[i + 1].charAt(j) != ' ')
+                        if (i + 1 < 3)
+                            if (figure.getFigure()[i + figure.getMatrixYRotate() + 1].charAt(j) != ' ')
                                 moveUp = false;
-                            else
-                                break;
-                        }
                     }
                 }
+                if(moveUp)
+                    break;
             }
             if(moveUp)
                 break;
@@ -260,6 +281,8 @@ public class GamePanel extends JPanel implements ActionListener {
             visualizeBlock();
             remBlock();
             figure.reset();
+            resetMatrix();
+            figure.setMatrixX(getWidth() / 2 / scale - 1);
         }
     }
 
@@ -274,7 +297,8 @@ public class GamePanel extends JPanel implements ActionListener {
                             if (figure.getFigure()[i].charAt(j + 1) != ' ') {
                                 move = false;
                             }
-                        }else if(j - 1 >= 0){
+                        }
+                        if(j - 1 >= 0){
                             if (figure.getFigure()[i].charAt(j - 1) != ' ') {
                                 move = false;
                             }
@@ -312,6 +336,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 collisionY();
             } else {
                 remBlock();
+                figure.setMatrixX(getWidth() / 2 / scale - 1);
                 figure.reset();
             }
         }
@@ -365,22 +390,25 @@ public class GamePanel extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
                 figure.move(-1, matrixW);
-                collisionX(-1);
+//                collisionX(-1);
                 repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_SPACE)) {
                 figure.rotate();
+                resetMatrix();
+                visualizeBlock();
+                repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {
                 if (figure.getMatrixY() + 3 < matrixH) {
                     figure.setMatrixY(figure.getMatrixY() + 1);
                     collisionY();
+                    repaint();
                 }
-                repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 figure.move(1, matrixW);
-                collisionX(1);
+//                collisionX(1);
                 repaint();
             }
         }
