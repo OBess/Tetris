@@ -332,6 +332,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (!lost) {
             if (figure.getMatrixY() + 3 < matrixH) {
+//                collisionY();
                 figure.setMatrixY(figure.getMatrixY() + 1);
                 collisionY();
             } else {
@@ -390,7 +391,7 @@ public class GamePanel extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
                 figure.move(-1, matrixW);
-//                collisionX(-1);
+                collisionX(-1);
                 repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_SPACE)) {
@@ -408,7 +409,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 figure.move(1, matrixW);
-//                collisionX(1);
+                collisionX(1);
                 repaint();
             }
         }
