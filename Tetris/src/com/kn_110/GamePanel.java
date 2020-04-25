@@ -56,14 +56,13 @@ public class GamePanel extends JPanel implements ActionListener {
         highScoreLoader();
 //      blankCursorFeature();
         setOpaque(true);
+        setFocusable(true);
         setBackground(new Color(0, 0, 0));
         setSize(W, H);
-
         addKeyListener(new gameKeyAdapter());
         addKeyListener(new pauseGameOver());
 
         initGame();
-        setFocusable(true);
     }
     //----------------/CONSTRUCTOR----------------
 
@@ -404,7 +403,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    class gameKeyAdapter extends KeyAdapter {
+     class gameKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {

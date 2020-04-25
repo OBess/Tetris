@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 // Interface Class
 class Window extends JFrame {
@@ -151,6 +152,7 @@ class Window extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(masterPanel);
         setSize(699, 726);
+        setResizable(false);
         setVisible(true);
         //----------------------------/FRAME--------------------------------
 
@@ -163,6 +165,12 @@ class Window extends JFrame {
 
         observer.start();
         this.timer.start();
+
+        try{
+            Robot rb = new Robot();
+            rb.keyPress(KeyEvent.VK_SPACE);
+            rb.keyRelease(KeyEvent.VK_SPACE);
+        } catch (AWTException e) {}
         //---------------------------/POST LOGIC-----------------------------
 
     }
