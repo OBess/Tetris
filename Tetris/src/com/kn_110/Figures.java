@@ -8,6 +8,7 @@ public class Figures {
     private int matrixY;
     private int matrixWidth;
     private int matrixYRotate;
+    private int heightFigure = 4;
     private String[] figure;
     //----------------/VARIABLES-----------------
 
@@ -22,6 +23,10 @@ public class Figures {
     //-------------------PUBLIC--------------------
     public String[] getFigure() {
         return figure;
+    }
+
+    public int getHeightFigure() {
+        return heightFigure;
     }
 
     public void setFigure(String[] figure) {
@@ -92,10 +97,10 @@ public class Figures {
     public void rotate() {
         if (matrixX < 0)
             matrixX++;
-        if(matrixX + 3 > matrixWidth)
+        if(matrixX + heightFigure > matrixWidth)
             matrixX--;
-        if (matrixYRotate + 3 < figure.length) {
-            matrixYRotate += 3;
+        if (matrixYRotate + heightFigure < figure.length) {
+            matrixYRotate += heightFigure;
         } else {
             matrixYRotate = 0;
         }
@@ -105,93 +110,112 @@ public class Figures {
 
     //----------------BLOCKS---------------------
     private String[] I = {
-            " r ",
-            " r ",
-            " r ",
+            " r  ",
+            " r  ",
+            " r  ",
+            " r  ",
 
-            "   ",
-            "   ",
-            "rrr"
+            "    ",
+            "    ",
+            "rrrr",
+            "    "
     };
 
     private String[] J = {
-            "   ",
-            "g  ",
-            "ggg",
+            "    ",
+            "g   ",
+            "ggg ",
+            "    ",
 
-            " gg",
-            " g ",
-            " g ",
+            "    ",
+            "gg  ",
+            "g   ",
+            "g   ",
 
-            "   ",
-            "ggg",
-            "  g",
+            "    ",
+            "ggg ",
+            "  g ",
+            "    ",
 
-            " g ",
-            " g ",
-            "gg "
+            "    ",
+            "  g ",
+            "  g ",
+            " gg "
     };
 
     private String[] L = {
-            "   ",
-            "  v",
-            "vvv",
+            "    ",
+            "   v",
+            " vvv",
+            "    ",
 
-            " v ",
-            " v ",
-            " vv",
+            "v   ",
+            "v   ",
+            "vv  ",
+            "    ",
 
-            "   ",
-            "vvv",
-            "v  ",
+            "    ",
+            "vvv ",
+            "v   ",
+            "    ",
 
-            "vv ",
-            " v ",
-            " v "
+            "  vv",
+            "   v",
+            "   v",
+            "    "
     };
 
     private String[] O = {
-            "   ",
-            " yy",
-            " yy"
+            "    ",
+            "    ",
+            "  yy",
+            "  yy"
     };
 
     private String[] S = {
-            "   ",
-            " bb",
-            "bb ",
+            "    ",
+            "  bb",
+            " bb ",
+            "    ",
 
-            " b ",
-            " bb",
-            "  b"
+            "    ",
+            "  b ",
+            "  bb",
+            "   b"
     };
 
     private String[] T = {
-            "   ",
-            " p ",
-            "ppp",
+            "    ",
+            "  p ",
+            " ppp",
+            "    ",
 
-            " p ",
-            " pp",
-            " p ",
+            "  p ",
+            "  pp",
+            "  p ",
+            "    ",
 
-            "   ",
-            "ppp",
-            " p ",
+            "    ",
+            " ppp",
+            "  p ",
+            "    ",
 
-            " p ",
-            "pp ",
-            " p "
+            "  p ",
+            " pp ",
+            "  p ",
+            "    "
     };
 
     private String[] Z = {
-            "   ",
-            "hh ",
-            " hh",
+            "    ",
+            " hh ",
+            "  hh",
+            "    ",
 
-            "  h",
-            " hh",
-            " h "
+            "    ",
+            "   h",
+            "  hh",
+            "  h "
     };
     //----------------/BLOCKS--------------------
 

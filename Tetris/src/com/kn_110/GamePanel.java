@@ -244,8 +244,8 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void visualizeBlock() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < figure.getHeightFigure(); i++) {
+            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
                 if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
                     matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j)
                             + figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j)
@@ -257,13 +257,13 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void moveY() {
         boolean moveUp = false;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < figure.getHeightFigure(); i++) {
             for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
                 if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
                     if (i + figure.getMatrixY() + 1 < matrixH) {
                         if (matrix[i + figure.getMatrixY() + 1].charAt(j + figure.getMatrixX()) != ' ') {
                             moveUp = true;
-                            if (i + 1 < 3)
+                            if (i + 1 < figure.getHeightFigure())
                                 if (figure.getFigure()[i + figure.getMatrixYRotate() + 1].charAt(j) != ' ')
                                     moveUp = false;
                         }
@@ -291,14 +291,14 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void moveX(int dir) {
         boolean moveBack = false;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < figure.getHeightFigure(); i++) {
             if (dir > 0) {
                 for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
                     if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
-                        if (j + figure.getMatrixX() + 1 < matrixW && dir > 0) {
+                        if (j + figure.getMatrixX() + 1 < matrixW) {
                             if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX() + 1) != ' ') {
                                 moveBack = true;
-                                if (j + 1 < 3) {
+                                if (j + 1 < figure.getHeightFigure()) {
                                     if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j + 1) != ' ') {
                                         moveBack = false;
                                     }
