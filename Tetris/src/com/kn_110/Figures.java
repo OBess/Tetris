@@ -83,30 +83,6 @@ public class Figures {
             rotate();
     }
 
-    public void move(int dir, int width) {
-        if (dir < 0) {
-            boolean moving = true;
-            for (int i = 0; i < 3; i++) {
-                if (figure[i + matrixYRotate].charAt(0) != ' ')
-                    moving = false;
-            }
-            if (moving && matrixX + dir >= -1)
-                matrixX += dir;
-            else if (matrixX + dir >= 0)
-                matrixX += dir;
-        } else if (dir > 0) {
-            boolean moving = true;
-            for (int i = 0; i < 3; i++) {
-                if (figure[i + matrixYRotate].charAt(2) != ' ')
-                    moving = false;
-            }
-            if (matrixX + 3 < width)
-                matrixX += dir;
-            else if (moving && matrixX + 2 < width)
-                matrixX += dir;
-        }
-    }
-
     public void reset() {
         matrixY = 0;
         matrixYRotate = 0;
