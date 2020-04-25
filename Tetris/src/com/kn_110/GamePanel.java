@@ -58,11 +58,12 @@ public class GamePanel extends JPanel implements ActionListener {
         setOpaque(true);
         setBackground(new Color(0, 0, 0));
         setSize(W, H);
-        setFocusable(true);
+
         addKeyListener(new gameKeyAdapter());
         addKeyListener(new pauseGameOver());
 
         initGame();
+        setFocusable(true);
     }
     //----------------/CONSTRUCTOR----------------
 
