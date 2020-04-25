@@ -258,7 +258,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private void moveY() {
         boolean moveUp = false;
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
                 if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
                     if (i + figure.getMatrixY() + 1 < matrixH) {
                         if (matrix[i + figure.getMatrixY() + 1].charAt(j + figure.getMatrixX()) != ' ') {
@@ -293,9 +293,9 @@ public class GamePanel extends JPanel implements ActionListener {
         boolean moveBack = false;
         for (int i = 0; i < 3; i++) {
             if (dir > 0) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
                     if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
-                        if (j + figure.getMatrixX() + 1 < matrixW) {
+                        if (j + figure.getMatrixX() + 1 < matrixW && dir > 0) {
                             if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX() + 1) != ' ') {
                                 moveBack = true;
                                 if (j + 1 < 3) {
@@ -311,7 +311,7 @@ public class GamePanel extends JPanel implements ActionListener {
                         break;
                 }
             } else if (dir < 0) {
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
                     if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
                         if (j + figure.getMatrixX() - 1 >= 0) {
                             if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX() - 1) != ' ') {
