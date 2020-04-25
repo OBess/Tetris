@@ -167,10 +167,7 @@ class Window extends JFrame {
 
     }
 
-//    Box box = Box.createVerticalBox();
-//        box.add(Box.createVerticalStrut(20));
-//        box.add(Box.createVerticalGlue());
-//        box.add(new JButton("Кнопка 1"));
+
     public static void main(final String[] args) {
         new Window();
     }
