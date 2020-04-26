@@ -338,6 +338,21 @@ public class GamePanel extends JPanel implements ActionListener {
         } else
             figure.setMatrixX(figure.getMatrixX() + dir);
     }
+
+    private void rotate() {
+        boolean rot = false;
+        for (int i = 0; i < figure.getHeightFigure(); i++) {
+            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
+                if (figure.getFigure()[i + figure.getMatrixRotated()].charAt(j) != ' ') {
+                    if (matrix[i + figure.getMatrixX()].charAt(j) != ' ') {
+                        if(j + 1 < matrixW)
+                    }
+                }
+            }
+        }
+        if (rot)
+            figure.rotate();
+    }
     //------------------/LOGIC BLOCK-----------------
 
 
@@ -403,7 +418,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-     class gameKeyAdapter extends KeyAdapter {
+    class gameKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
@@ -411,9 +426,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)) {
-                figure.rotate();
-                resetMatrix();
-                visualizeBlock();
+                rotate();
                 repaint();
             }
             if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {

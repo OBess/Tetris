@@ -8,6 +8,7 @@ public class Figures {
     private int matrixY;
     private int matrixWidth;
     private int matrixYRotate;
+    private int matrixRotated;
     private int heightFigure = 4;
     private String[] figure;
     //----------------/VARIABLES-----------------
@@ -57,6 +58,10 @@ public class Figures {
         return matrixYRotate;
     }
 
+    public int getMatrixRotated() {
+        return matrixRotated;
+    }
+
     public void randomizer() {
         int random = new Random().nextInt(7);
         switch (random) {
@@ -95,14 +100,17 @@ public class Figures {
     }
 
     public void rotate() {
-        if (matrixX < 0)
-            matrixX++;
-        if(matrixX + heightFigure > matrixWidth)
-            matrixX--;
         if (matrixYRotate + heightFigure < figure.length) {
             matrixYRotate += heightFigure;
         } else {
             matrixYRotate = 0;
+        }
+
+        matrixRotated = matrixYRotate;
+        if (matrixRotated + heightFigure < figure.length) {
+            matrixRotated += heightFigure;
+        } else {
+            matrixRotated = 0;
         }
     }
     //-------------------/PUBLIC-------------------
