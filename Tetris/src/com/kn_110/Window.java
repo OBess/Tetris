@@ -48,8 +48,8 @@ class Window extends JFrame {
         timerLabel = new JLabel();
 
         mute = new JButton();
-        muteIcon = new ImageIcon("resources\\images\\Mute_zipped.png");
-        unMuteIcon = new ImageIcon("resources\\images\\unMute_zipped.png");
+        muteIcon = new ImageIcon("images\\Mute_zipped.png");
+        unMuteIcon = new ImageIcon("images\\unMute_zipped.png");
 
         gamePanel = new GamePanel();
         //------------------------/NEW OBJECTS---------------------------
@@ -119,7 +119,7 @@ class Window extends JFrame {
         mute.setBorder(null);
 
         buttonPanel.setBackground(new Color(66, 66, 66));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(500, 0, 0, 0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
         buttonPanel.add(mute);
 
         gridPanel.setLayout(new GridLayout(3, 0, 5, 0));

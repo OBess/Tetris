@@ -343,11 +343,23 @@ public class GamePanel extends JPanel implements ActionListener {
         boolean rot = false;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
             for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
+                if(i + figure.getMatrixRotated() + figure.getMatrixX() < 0){
+                    figure.setMatrixX(figure.getMatrixX() + 1);
+                    rot = false;
+                }else if(i + figure.getMatrixRotated() + figure.getMatrixX() >= matrixW){
+                    figure.setMatrixX(figure.getMatrixX() - 1);
+                    rot = false;
+                }
+                else
+                    rot = true;
+
                 if (figure.getFigure()[i + figure.getMatrixRotated()].charAt(j) != ' ') {
-                    if (matrix[i + figure.getMatrixX()].charAt(j) != ' ') {
-                        if(j + 1 < matrixW)
+                    if (matrix[i + figure.getMatrixX() + figure.getMatrixRotated()].charAt(j) != ' ') {
+                        rot = true;
+
                     }
                 }
+
             }
         }
         if (rot)
