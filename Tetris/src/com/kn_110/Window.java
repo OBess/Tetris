@@ -15,6 +15,7 @@ class Window extends JFrame {
     private final JPanel borderPanel;
     private final JPanel buttonPanel;
     private final GamePanel gamePanel;
+    private final FutureFigures futureFigures;
 
     private final JLabel timerLabel;
     private final JLabel score;
@@ -52,6 +53,7 @@ class Window extends JFrame {
         unMuteIcon = new ImageIcon("Tetris\\images\\unMute_zipped.png");
 
         gamePanel = new GamePanel();
+        futureFigures = new FutureFigures();
         //------------------------/NEW OBJECTS---------------------------
 
 
@@ -130,8 +132,8 @@ class Window extends JFrame {
         borderPanel.setLayout(new BorderLayout());
         borderPanel.setBackground(new Color(66, 66, 66));
         borderPanel.add(gridPanel, "North");
-        borderPanel.add(timerLabel, "Center");
-        borderPanel.add(buttonPanel, "South");
+        borderPanel.add(futureFigures, "Center");
+//        borderPanel.add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
 
         leftPanel.setLayout(new FlowLayout());
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 30));

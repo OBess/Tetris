@@ -424,9 +424,7 @@ public class GamePanel extends JPanel implements ActionListener {
         int count = 0;
         for (int i = 0; i < matrixH; i++) {
             if (copyMatrix[i].indexOf(' ') == matrixW) {
-                for (int j = i; j >= 1; j--) {
-                    copyMatrix[j] = copyMatrix[j - 1];
-                }
+                System.arraycopy(copyMatrix, 0, copyMatrix, 1, i);
                 copyMatrix[0] = " ";
                 for (int j = 0; j < matrixW; j++) {
                     copyMatrix[0] += " ";
