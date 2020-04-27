@@ -62,7 +62,7 @@ public class Figures {
         return matrixRotated;
     }
 
-    public void randomizer( ) {
+    public void randomizer() {
         int random = new Random().nextInt(7);
         switch (random) {
             case 0:
@@ -123,9 +123,9 @@ public class Figures {
             " r  ",
             " r  ",
 
-            "    ",
-            "    ",
             "rrrr",
+            "    ",
+            "    ",
             "    "
     };
 
@@ -135,26 +135,27 @@ public class Figures {
             "ggg ",
             "    ",
 
-            "    ",
             "gg  ",
             "g   ",
             "g   ",
-
             "    ",
+
             "ggg ",
             "  g ",
             "    ",
-
             "    ",
+
             "  g ",
             "  g ",
-            " gg "
+            " gg ",
+            "    "
     };
 
     private String[] L = {
-            "    ",
+
             "   v",
             " vvv",
+            "    ",
             "    ",
 
             "v   ",
@@ -162,9 +163,9 @@ public class Figures {
             "vv  ",
             "    ",
 
-            "    ",
             "vvv ",
             "v   ",
+            "    ",
             "    ",
 
             "  vv",
@@ -174,28 +175,28 @@ public class Figures {
     };
 
     private String[] O = {
-            "    ",
-            "    ",
             "  yy",
-            "  yy"
+            "  yy",
+            "    ",
+            "    "
     };
 
     private String[] S = {
-            "    ",
             "  bb",
             " bb ",
             "    ",
-
             "    ",
+
             "  b ",
             "  bb",
-            "   b"
+            "   b",
+            "    "
     };
 
     private String[] T = {
-            "    ",
             "  p ",
             " ppp",
+            "    ",
             "    ",
 
             "  p ",
@@ -203,9 +204,9 @@ public class Figures {
             "  p ",
             "    ",
 
-            "    ",
             " ppp",
             "  p ",
+            "    ",
             "    ",
 
             "  p ",
@@ -215,15 +216,16 @@ public class Figures {
     };
 
     private String[] Z = {
-            "    ",
             " hh ",
             "  hh",
             "    ",
-
             "    ",
+
+
             "   h",
             "  hh",
-            "  h "
+            "  h ",
+            "    ",
     };
     //----------------/BLOCKS--------------------
 

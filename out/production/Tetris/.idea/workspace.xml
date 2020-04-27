@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02806263-72fd-4aa6-9ac5-97124e4078a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/Figures.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/Figures.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$gameKeyAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$gameKeyAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$pauseGameOver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$pauseGameOver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,11 +36,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-10" />
-    <option name="width" value="1622" />
-    <option name="height" value="1812" />
   </component>
   <component name="ProjectId" id="1ao3fUTXU9go4hhtKQs7WsC99vE" />
   <component name="ProjectViewState">
@@ -90,13 +79,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="198" y="37" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587558280114">

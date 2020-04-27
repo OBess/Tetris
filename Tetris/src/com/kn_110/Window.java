@@ -48,8 +48,8 @@ class Window extends JFrame {
         timerLabel = new JLabel();
 
         mute = new JButton();
-        muteIcon = new ImageIcon("images\\Mute_zipped.png");
-        unMuteIcon = new ImageIcon("images\\unMute_zipped.png");
+        muteIcon = new ImageIcon("Tetris\\images\\Mute_zipped.png");
+        unMuteIcon = new ImageIcon("Tetris\\images\\unMute_zipped.png");
 
         gamePanel = new GamePanel();
         //------------------------/NEW OBJECTS---------------------------
@@ -104,7 +104,7 @@ class Window extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 buttonState = !buttonState;
-                if (buttonState)
+                if (!buttonState)
                     mute.setIcon(muteIcon);
                 else
                     mute.setIcon(unMuteIcon);

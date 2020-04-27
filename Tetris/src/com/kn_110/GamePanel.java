@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,9 +33,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     private boolean lost;
+    private boolean isEnd;
     private boolean pause;
     private boolean inited;
     private boolean muted;
+    private boolean skip;
+    private boolean reseted;
 
 
     //----------------/VARIABLES------------------
@@ -61,6 +65,10 @@ public class GamePanel extends JPanel implements ActionListener {
         setSize(W, H);
         addKeyListener(new gameKeyAdapter());
         addKeyListener(new pauseGameOver());
+
+        scale = 30;
+        matrixH = getHeight() / scale;
+        matrixW = getWidth() / scale;
 
         initGame();
     }
@@ -122,16 +130,16 @@ public class GamePanel extends JPanel implements ActionListener {
         muted = false;
 
         delay = 500;
-        scale = 30;
 
-        matrixH = getHeight() / scale;
-        matrixW = getWidth() / scale;
         matrix = new String[matrixH];
         copyMatrix = new String[matrixH];
         initMatrix();
 
         figure.setMatrixX(getWidth() / 2 / scale - 1);
         figure.setMatrixWidth(getWidth() / scale);
+        figure.reset();
+
+        score.setText("Score: 0");
 
         timer = new Timer(delay, this);
         timer.start();
@@ -172,8 +180,6 @@ public class GamePanel extends JPanel implements ActionListener {
             writeToHighScore();
         }
     }
-
-
     //-------------------/PUBLIC--------------------
 
 
@@ -182,40 +188,79 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = 0; i < matrixH; i++) {
             for (int j = 0; j < matrixW; j++) {
                 if (matrix[i].charAt(j) == ' ') {
-                    g.setColor(new Color(0, 0, 0));
+                    g.setColor(new Color(25, 28, 78));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'r') {
-                    g.setColor(new Color(222, 62, 50));
+                    g.setColor(new Color(255, 0, 0));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'y') {
-                    g.setColor(new Color(222, 203, 86));
+                    g.setColor(new Color(255, 224, 0));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'g') {
-                    g.setColor(new Color(112, 222, 130));
+                    g.setColor(new Color(131, 0, 255));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'b') {
-                    g.setColor(new Color(58, 212, 222));
+                    g.setColor(new Color(255, 132, 0));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'p') {
-                    g.setColor(new Color(219, 107, 222));
+                    g.setColor(new Color(255, 0, 217));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'v') {
-                    g.setColor(new Color(32, 137, 222));
+                    g.setColor(new Color(0, 141, 255));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'h') {
-                    g.setColor(new Color(163, 222, 30));
+                    g.setColor(new Color(132, 255, 0));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else {
                     g.setColor(new Color(208, 222, 214));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 }
-                g.setColor(new Color(82, 84, 95, 255));
+                g.setColor(new Color(59, 59, 59, 131));
                 g.drawRect(j * scale, i * scale, scale, scale);
             }
         }
     }
 
+    private void paintPause(Graphics g) {
+        if (pause) {
+            g.setColor(new Color(0, 0, 0, 127));
+            g.fillRect(0, 0, 4000, 4000);
+            stringInTheMiddle("Pause", g, Color.WHITE, 50, 1, 2);
+            stringInTheMiddle("press M to mute/unmute sounds", g, Color.WHITE, 15, 0, 1.7);
+        }
+    }
 
+    private void paintGameOver(Graphics g) {
+        if (lost) {
+            g.setColor(new Color(0, 0, 0, 127));
+            g.fillRect(0, 0, 4000, 4000);
+            stringInTheMiddle("Game Over", g, Color.RED, 50, 1, 2);
+            stringInTheMiddle("press any key to restart", g, Color.WHITE, 20, 0, 1.7);
+            if (!isEnd) {
+                soundFXLoader("Snake\\sounds\\game_over.wav");
+                isEnd = true;
+            }
+        }
+    }
+
+    private void paintResetScreen(Graphics g) {
+        if (reseted) {
+            g.setColor(new Color(0, 0, 0, 127));
+            g.fillRect(0, 0, 4000, 4000);
+            stringInTheMiddle("Reseted", g, Color.RED, 50, 1, 2);
+            reseted = false;
+        }
+    }
+
+    private void stringInTheMiddle(String string, Graphics g, Color color, int fontScale, int fontStyle, double yPos) {
+        g.setFont(new Font("Dialog", fontStyle, fontScale));
+        FontMetrics fm = g.getFontMetrics();
+        Rectangle2D r = fm.getStringBounds(string, g);
+        int x = (getWidth() - (int) r.getWidth()) / 2;
+        int y = (int) ((getHeight() - (int) r.getHeight()) / yPos + fm.getAscent());
+        g.setColor(color);
+        g.drawString(string, x, y);
+    }
     //------------------/PAINT BLOCK-----------------
 
 
@@ -374,6 +419,50 @@ public class GamePanel extends JPanel implements ActionListener {
             visualizeBlock();
         }
     }
+
+    private void deleteRow() {
+        int count = 0;
+        for (int i = 0; i < matrixH; i++) {
+            if (copyMatrix[i].indexOf(' ') == matrixW) {
+                for (int j = i; j >= 1; j--) {
+                    copyMatrix[j] = copyMatrix[j - 1];
+                }
+                copyMatrix[0] = " ";
+                for (int j = 0; j < matrixW; j++) {
+                    copyMatrix[0] += " ";
+                }
+                resetMatrix();
+                visualizeBlock();
+                scorePoints++;
+                count++;
+                score.setText("Score: " + scorePoints);
+                repaint();
+            }
+        }
+        if (count == 4) {
+            scorePoints += 20;
+            score.setText("Score: " + scorePoints);
+        }
+    }
+
+    private void gameOver() {
+        if (figure.getMatrixY() == 0) {
+            skip = true;
+        }
+        if (skip) {
+            if (matrix[0].indexOf('r') != -1
+                    || matrix[0].indexOf('g') != -1
+                    || matrix[0].indexOf('v') != -1
+                    || matrix[0].indexOf('y') != -1
+                    || matrix[0].indexOf('b') != -1
+                    || matrix[0].indexOf('p') != -1
+                    || matrix[0].indexOf('h') != -1) {
+                scorePoints = 0;
+                lost = true;
+            }
+            skip = false;
+        }
+    }
     //------------------/LOGIC BLOCK-----------------
 
 
@@ -387,12 +476,18 @@ public class GamePanel extends JPanel implements ActionListener {
             visualizeBlock();
             paintGrid(g);
         }
+        paintPause(g);
+        paintGameOver(g);
+        paintResetScreen(g);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!lost) {
             moveY();
+            gameOver();
+            deleteRow();
+            highScoreLogic();
         }
         repaint();
     }
@@ -415,6 +510,7 @@ public class GamePanel extends JPanel implements ActionListener {
                         repaint();
                         pause = true;
                     }
+
                 } else {
                     int[] allKeyCodes = new int[223];
                     for (int i = 0; i < allKeyCodes.length; i++) {
@@ -425,6 +521,13 @@ public class GamePanel extends JPanel implements ActionListener {
                         }
                     }
                 }
+
+                if (e.getKeyCode() == KeyEvent.VK_R || e.getKeyCode() == KeyEvent.VK_R) {
+                    timer.stop();
+                    initGame();
+                    reseted = true;
+                }
+
             } else {
                 // game over logic
                 timer.stop();
