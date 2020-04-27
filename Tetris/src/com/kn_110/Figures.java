@@ -62,7 +62,7 @@ public class Figures {
         return matrixRotated;
     }
 
-    public void randomizer() {
+    public void randomizer( ) {
         int random = new Random().nextInt(7);
         switch (random) {
             case 0:

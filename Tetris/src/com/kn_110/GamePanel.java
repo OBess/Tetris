@@ -182,7 +182,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = 0; i < matrixH; i++) {
             for (int j = 0; j < matrixW; j++) {
                 if (matrix[i].charAt(j) == ' ') {
-                    g.setColor(new Color(88, 130, 125));
+                    g.setColor(new Color(0, 0, 0));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'r') {
                     g.setColor(new Color(222, 62, 50));
@@ -340,30 +340,39 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void rotate() {
-        boolean rot = false;
+        boolean rot = false, up = false, rightLeft = true;
+        int count = 0;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
             for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
-                if(i + figure.getMatrixRotated() + figure.getMatrixX() < 0){
-                    figure.setMatrixX(figure.getMatrixX() + 1);
-                    rot = false;
-                }else if(i + figure.getMatrixRotated() + figure.getMatrixX() >= matrixW){
-                    figure.setMatrixX(figure.getMatrixX() - 1);
-                    rot = false;
-                }
-                else
-                    rot = true;
-
                 if (figure.getFigure()[i + figure.getMatrixRotated()].charAt(j) != ' ') {
-                    if (matrix[i + figure.getMatrixX() + figure.getMatrixRotated()].charAt(j) != ' ') {
-                        rot = true;
-
+                    rot = true;
+                    if (j + figure.getMatrixX() < 0) {
+                        count++;
+                    } else if (j + figure.getMatrixX() >= matrixW) {
+                        count--;
+                    } else if (i + figure.getMatrixY() >= matrixH) {
+                        up = true;
+                        count--;
+                    } else {
+                        if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
+                                figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) == ' ') {
+                            count++;
+                        }
                     }
                 }
-
             }
         }
-        if (rot)
+
+        if (!up)
+            figure.setMatrixX(figure.getMatrixX() + count);
+        else
+            figure.setMatrixY(figure.getMatrixY() + count);
+
+        if (rot) {
             figure.rotate();
+            resetMatrix();
+            visualizeBlock();
+        }
     }
     //------------------/LOGIC BLOCK-----------------
 
