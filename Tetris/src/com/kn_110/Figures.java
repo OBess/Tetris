@@ -153,8 +153,8 @@ public class Figures {
 
     private String[] L = {
 
-            "   v",
-            " vvv",
+            "  v ",
+            "vvv ",
             "    ",
             "    ",
 
@@ -168,9 +168,9 @@ public class Figures {
             "    ",
             "    ",
 
-            "  vv",
-            "   v",
-            "   v",
+            " vv ",
+            "  v ",
+            "  v ",
             "    "
     };
 
