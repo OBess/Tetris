@@ -7,7 +7,7 @@ public class Figures {
     private int matrixX;
     private int matrixY;
     private int matrixWidth;
-    private int matrixYRotate;
+    private int matrixRotate;
     private int matrixRotated;
     private int heightFigure = 4;
     private String[] figure;
@@ -54,8 +54,8 @@ public class Figures {
         return matrixY;
     }
 
-    public int getMatrixYRotate() {
-        return matrixYRotate;
+    public int getMatrixRotate() {
+        return matrixRotate;
     }
 
     public int getMatrixRotated() {
@@ -95,18 +95,19 @@ public class Figures {
 
     public void reset() {
         matrixY = 0;
-        matrixYRotate = 0;
+        matrixRotate = 0;
+        matrixRotated = 0;
         randomizer();
     }
 
     public void rotate() {
-        if (matrixYRotate + heightFigure < figure.length) {
-            matrixYRotate += heightFigure;
+        if (matrixRotate + heightFigure < figure.length) {
+            matrixRotate += heightFigure;
         } else {
-            matrixYRotate = 0;
+            matrixRotate = 0;
         }
 
-        matrixRotated = matrixYRotate;
+        matrixRotated = matrixRotate;
         if (matrixRotated + heightFigure < figure.length) {
             matrixRotated += heightFigure;
         } else {
@@ -130,9 +131,9 @@ public class Figures {
     };
 
     private String[] J = {
-            "    ",
             "g   ",
             "ggg ",
+            "    ",
             "    ",
 
             "gg  ",

@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         scale = 30;
         matrixH = getHeight() / scale;
-        matrixW = getWidth() / scale;
+        matrixW = getWidth() / scale - 1;
 
         initGame();
     }
@@ -290,10 +290,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void visualizeBlock() {
         for (int i = 0; i < figure.getHeightFigure(); i++) {
-            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
-                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotate()].length(); j++) {
+                if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) != ' ') {
                     matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j)
-                            + figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j)
+                            + figure.getFigure()[i + figure.getMatrixRotate()].charAt(j)
                             + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1, matrix[i + figure.getMatrixY()].length());
                 }
             }
@@ -303,13 +303,13 @@ public class GamePanel extends JPanel implements ActionListener {
     private void moveY() {
         boolean moveUp = false;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
-            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
-                if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotate()].length(); j++) {
+                if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) != ' ') {
                     if (i + figure.getMatrixY() + 1 < matrixH) {
                         if (matrix[i + figure.getMatrixY() + 1].charAt(j + figure.getMatrixX()) != ' ') {
                             moveUp = true;
                             if (i + 1 < figure.getHeightFigure())
-                                if (figure.getFigure()[i + figure.getMatrixYRotate() + 1].charAt(j) != ' ')
+                                if (figure.getFigure()[i + figure.getMatrixRotate() + 1].charAt(j) != ' ')
                                     moveUp = false;
                         }
                     } else
@@ -338,13 +338,13 @@ public class GamePanel extends JPanel implements ActionListener {
         boolean moveBack = false;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
             if (dir > 0) {
-                for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
-                    if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+                for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotate()].length(); j++) {
+                    if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) != ' ') {
                         if (j + figure.getMatrixX() + 1 < matrixW) {
                             if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX() + 1) != ' ') {
                                 moveBack = true;
                                 if (j + 1 < figure.getHeightFigure()) {
-                                    if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j + 1) != ' ') {
+                                    if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j + 1) != ' ') {
                                         moveBack = false;
                                     }
                                 }
@@ -356,13 +356,13 @@ public class GamePanel extends JPanel implements ActionListener {
                         break;
                 }
             } else if (dir < 0) {
-                for (int j = 0; j < figure.getFigure()[i + figure.getMatrixYRotate()].length(); j++) {
-                    if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) != ' ') {
+                for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotate()].length(); j++) {
+                    if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) != ' ') {
                         if (j + figure.getMatrixX() - 1 >= 0) {
                             if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX() - 1) != ' ') {
                                 moveBack = true;
                                 if (j - 1 >= 0) {
-                                    if (figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j - 1) != ' ') {
+                                    if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j - 1) != ' ') {
                                         moveBack = false;
                                     }
                                 }
@@ -377,16 +377,15 @@ public class GamePanel extends JPanel implements ActionListener {
             if (moveBack)
                 break;
         }
-        if (moveBack) {
-            resetMatrix();
-            visualizeBlock();
-        } else
+        if(!moveBack)
             figure.setMatrixX(figure.getMatrixX() + dir);
+        resetMatrix();
+        visualizeBlock();
     }
 
     private void rotate() {
         boolean rot = true, up = false;
-        int count = 0, all = 0, check = 0, dir = 1;
+        int count = 0, all = 0, check = 0;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
             for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
                 if (figure.getFigure()[i + figure.getMatrixRotated()].charAt(j) != ' ') {
@@ -400,24 +399,23 @@ public class GamePanel extends JPanel implements ActionListener {
                         up = true;
                         count--;
                     } else {
-                        if (check != 0) {
-                            if (all % check <= 2) {
-                                rot = false;
+                        if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
+                                figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
+                            check++;
+                            count++;
+
+                            if ((matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') && (j == figure.getFigure()[i].length() - 1 || j == figure.getFigure()[i].length() - 2)) {
+                                count *= -1;
+                                System.out.println(3);
+                            }
+                            if ((matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') && (i == figure.getHeightFigure() - 1 || i == figure.getHeightFigure() - 2)) {
+                                count *= -1;
+                                up = true;
                             }
                         }
-                        if(rot) {
-                            if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
-                                    figure.getFigure()[i + figure.getMatrixYRotate()].charAt(j) == ' ') {
-                                check++;
-                                count++;
-
-                                if ((matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') && j >= figure.getFigure()[i + figure.getMatrixRotated()].length() - 2) {
-                                    dir *= -1;
-                                }
-                                if ((matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') && i >= figure.getHeightFigure() - 2) {
-                                    dir *= -1;
-                                    up = true;
-                                }
+                        if (check != 0) {
+                            if (all - check <= 2) {
+                                rot = false;
                             }
                         }
                     }
@@ -431,9 +429,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
         if (rot) {
             if (!up)
-                figure.setMatrixX(figure.getMatrixX() + count * dir);
+                figure.setMatrixX(figure.getMatrixX() + count);
             else
-                figure.setMatrixY(figure.getMatrixY() + count * dir);
+                figure.setMatrixY(figure.getMatrixY() + count);
 
             figure.rotate();
             resetMatrix();
