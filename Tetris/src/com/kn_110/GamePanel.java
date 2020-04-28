@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class GamePanel extends JPanel implements ActionListener {
     GamePanel() {
         highScoreLoader();
         highScoreLoader();
-//      blankCursorFeature();
+        blankCursorFeature();
         setOpaque(true);
         setFocusable(true);
         setBackground(new Color(0, 0, 0));
@@ -118,6 +119,12 @@ public class GamePanel extends JPanel implements ActionListener {
                 System.out.println("failed to load audio file");
             }
         }
+    }
+
+    private void blankCursorFeature() {
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
+        setCursor(blankCursor);
     }
     //------------------/PRELOAD-------------------
 
@@ -443,9 +450,7 @@ public class GamePanel extends JPanel implements ActionListener {
         int count = 0;
         for (int i = 0; i < matrixH; i++) {
             if (copyMatrix[i].indexOf(' ') == matrixW) {
-                for (int j = i; j >= 1; j--) {
-                    copyMatrix[j] = copyMatrix[j - 1];
-                }
+                System.arraycopy(copyMatrix, 0, copyMatrix, 1, i);
                 copyMatrix[0] = " ";
                 for (int j = 0; j < matrixW; j++) {
                     copyMatrix[0] += " ";
