@@ -1,8 +1,10 @@
 package com.kn_110;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 // Interface Class
@@ -20,6 +22,7 @@ class Window extends JFrame {
     private final JLabel timerLabel;
     private final JLabel score;
     private final JLabel highScore;
+    private final JLabel level;
 
     private final JButton mute;
     private final ImageIcon muteIcon;
@@ -47,6 +50,7 @@ class Window extends JFrame {
         score = new JLabel();
         highScore = new JLabel();
         timerLabel = new JLabel();
+        level = new JLabel();
 
         mute = new JButton();
         muteIcon = new ImageIcon("Tetris\\images\\Mute_zipped.png");
@@ -84,6 +88,9 @@ class Window extends JFrame {
                 } else {
                     mute.setIcon(unMuteIcon);
                 }
+                if (gamePanel.getHighScore() > 9999)
+                    setSize(700 + highScore.getText().substring(11,
+                            highScore.getText().length() - 1).length() * 10, 726);
             }
         });
 
@@ -91,6 +98,11 @@ class Window extends JFrame {
         timerLabel.setForeground(new Color(135, 135, 135, 255));
         timerLabel.setFont(new Font("Dialog", Font.BOLD, 20));
         timerLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+        level.setText("Level: 1");
+        level.setForeground(new Color(135, 135, 135, 255));
+        level.setFont(new Font("Dialog", Font.BOLD, 20));
+        level.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         score.setText("Score: 0");
         score.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -128,19 +140,19 @@ class Window extends JFrame {
         gridPanel.setBackground(new Color(66, 66, 66));
         gridPanel.add(score);
         gridPanel.add(highScore);
+        gridPanel.add(level);
 
         borderPanel.setLayout(new BorderLayout());
         borderPanel.setBackground(new Color(66, 66, 66));
         borderPanel.add(gridPanel, "North");
         borderPanel.add(futureFigures, "Center");
-//        borderPanel.add(buttonPanel, BorderLayout.AFTER_LAST_LINE);
+        borderPanel.add(timerLabel, BorderLayout.AFTER_LAST_LINE);
 
         leftPanel.setLayout(new FlowLayout());
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 30));
         leftPanel.setBackground(new Color(66, 66, 66));
         leftPanel.add(borderPanel, "Left");
 
-        // masterPanel where all interface and game elements will locate
         masterPanel.setLayout(new BorderLayout());
         masterPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         masterPanel.setBackground(new Color(66, 66, 66));
@@ -149,31 +161,41 @@ class Window extends JFrame {
         //------------------------------/UI---------------------------------
 
 
-        //----------------------------FRAME---------------------------------
-        setTitle("Tetris0.0");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(masterPanel);
-        setSize(699, 726);
-        setResizable(false);
-        setVisible(true);
-        //----------------------------/FRAME--------------------------------
-
-
         //---------------------------POST LOGIC-----------------------------
         gamePanel.scoreEditor(score);
         gamePanel.highScoreEditor(highScore);
+        gamePanel.level(level);
         gamePanel.highScoreLogic();
         gamePanel.requestFocus();
 
         observer.start();
         this.timer.start();
 
-        try{
-            Robot rb = new Robot();
-            rb.keyPress(KeyEvent.VK_SPACE);
-            rb.keyRelease(KeyEvent.VK_SPACE);
-        } catch (AWTException e) {}
+//        try {
+//            Robot rb = new Robot();
+//            rb.keyPress(KeyEvent.VK_SPACE);
+//            rb.keyRelease(KeyEvent.VK_SPACE);
+//        } catch (AWTException ignored) {
+//        }
+
         //---------------------------/POST LOGIC-----------------------------
+
+
+        //----------------------------FRAME---------------------------------
+        setTitle("Tetris 0.0");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        add(masterPanel);
+
+        if (gamePanel.getHighScore() > 9999)
+            setSize(700 + highScore.getText().substring(11,
+                    highScore.getText().length() - 1).length() * 10, 726);
+        else
+            setSize(700 + 40, 726);
+        setUndecorated(false);
+        setResizable(false);
+        setVisible(true);
+        //----------------------------/FRAME--------------------------------
+
 
     }
 

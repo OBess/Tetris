@@ -87,7 +87,6 @@ public class Figures {
                 figure = Z;
                 break;
         }
-
         random = new Random().nextInt(figure.length);
         for (int i = 0; i < random; i++)
             rotate();
