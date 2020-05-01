@@ -20,14 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02806263-72fd-4aa6-9ac5-97124e4078a7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/Figures.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/Figures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/FutureFigures.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/FutureFigures.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris/src/com/kn_110/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$gameKeyAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$gameKeyAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$pauseGameOver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel$pauseGameOver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/com/kn_110/GamePanel.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
