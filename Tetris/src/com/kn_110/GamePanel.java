@@ -40,6 +40,8 @@ public class GamePanel extends JPanel implements ActionListener {
     private boolean muted;
     private boolean skip;
     private boolean reseted;
+    private boolean fall;
+    private boolean fallOnce;
 
 
     //----------------/VARIABLES------------------
@@ -330,6 +332,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 break;
         }
         if (moveUp) {
+            fall = false;
             figure.setMatrixY(figure.getMatrixY());
             resetMatrix();
             visualizeBlock();
@@ -384,7 +387,7 @@ public class GamePanel extends JPanel implements ActionListener {
             if (moveBack)
                 break;
         }
-        if(!moveBack)
+        if (!moveBack)
             figure.setMatrixX(figure.getMatrixX() + dir);
         resetMatrix();
         visualizeBlock();
@@ -392,11 +395,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void rotate() {
         boolean rot = true, up = false;
-        int count = 0, all = 0, check = 0;
+        int count = 0;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
             for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
-                if (figure.getFigure()[i + figure.getMatrixRotated()].charAt(j) != ' ') {
-                    all++;
+                if (matrix[i + figure.getMatrixRotated()].charAt(j) != ' ') {
                     rot = true;
                     if (j + figure.getMatrixX() < 0) {
                         count++;
@@ -405,26 +407,8 @@ public class GamePanel extends JPanel implements ActionListener {
                     } else if (i + figure.getMatrixY() >= matrixH) {
                         up = true;
                         count--;
-                    } else {
-                        if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
-                                figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
-                            check++;
-                            count++;
-
-                            if ((matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') && (j == figure.getFigure()[i].length() - 1 || j == figure.getFigure()[i].length() - 2)) {
-                                count *= -1;
-                                System.out.println(3);
-                            }
-                            if ((matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') && (i == figure.getHeightFigure() - 1 || i == figure.getHeightFigure() - 2)) {
-                                count *= -1;
-                                up = true;
-                            }
-                        }
-                        if (check != 0) {
-                            if (all - check <= 2) {
-                                rot = false;
-                            }
-                        }
+                    } else if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ') {
+                        rot = false;
                     }
                 }
                 if (!rot)
@@ -584,6 +568,16 @@ public class GamePanel extends JPanel implements ActionListener {
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 moveX(1);
                 repaint();
+            }
+            if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
+                if(fallOnce) {
+                    fall = true;
+                    while (fall) {
+                        moveY();
+                        repaint();
+                    }
+                }
+                fallOnce = true;
             }
         }
     }
