@@ -393,34 +393,40 @@ public class GamePanel extends JPanel implements ActionListener {
   }
 
   private void rotate() {
-    boolean rot = true;
-    boolean up = false;
+    boolean rot = true, up = false;
     int count = 0;
     for (int i = 0; i < figure.getHeightFigure(); i++) {
       for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
-        if (matrix[i + figure.getMatrixRotated()].charAt(j) != ' ') {
+        if (figure.getFigure()[i + figure.getMatrixRotated()].charAt(j) != ' ') {
+          rot = true;
           if (j + figure.getMatrixX() < 0) {
             count++;
           } else if (j + figure.getMatrixX() >= matrixW) {
             count--;
           } else if (i + figure.getMatrixY() >= matrixH) {
-            count--;
             up = true;
-          } else if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' && figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
-            rot = false;
+            count--;
+          } else {
+              if(rot) {
+                if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
+                        figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
+                  rot = false;
+                }
+              }
+            }
           }
+          if (!rot)
+            break;
         }
         if (!rot)
           break;
       }
-      if (!rot)
-        break;
-    }
     if (rot) {
-      if (up)
-        figure.setMatrixY(figure.getMatrixY() + count);
-      else
+      if (!up)
         figure.setMatrixX(figure.getMatrixX() + count);
+      else
+        figure.setMatrixY(figure.getMatrixY() + count);
+
       figure.rotate();
       resetMatrix();
       visualizeBlock();
