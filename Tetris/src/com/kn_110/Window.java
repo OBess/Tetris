@@ -15,6 +15,7 @@ class Window extends JFrame {
     private final JPanel leftPanel;
     private final JPanel gridPanel;
     private final JPanel borderPanel;
+    private final JPanel borderPanel1;
     private final JPanel buttonPanel;
     private final GamePanel gamePanel;
     private final FutureFigures futureFigures;
@@ -45,6 +46,7 @@ class Window extends JFrame {
         leftPanel = new JPanel();
         gridPanel = new JPanel();
         borderPanel = new JPanel();
+        borderPanel1 = new JPanel();
         buttonPanel = new JPanel();
 
         score = new JLabel();
@@ -132,6 +134,8 @@ class Window extends JFrame {
         mute.setBackground(new Color(66, 66, 66));
         mute.setBorder(null);
 
+        futureFigures.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 19,new Color(66,66,66)));
+
         buttonPanel.setBackground(new Color(66, 66, 66));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
         buttonPanel.add(mute);
@@ -142,11 +146,15 @@ class Window extends JFrame {
         gridPanel.add(highScore);
         gridPanel.add(level);
 
-        borderPanel.setLayout(new BorderLayout());
+        borderPanel1.setLayout(new BorderLayout());
+        borderPanel1.setBackground(new Color(66, 66, 66));
+        borderPanel1.add(gridPanel, "North");
+        borderPanel1.add(timerLabel, "Center");
+
+        borderPanel.setLayout(new GridLayout(3,0, 0, 30));
         borderPanel.setBackground(new Color(66, 66, 66));
-        borderPanel.add(gridPanel, "North");
-        borderPanel.add(futureFigures, "Center");
-        borderPanel.add(timerLabel, BorderLayout.AFTER_LAST_LINE);
+        borderPanel.add(borderPanel1 );
+        borderPanel.add(futureFigures);
 
         leftPanel.setLayout(new FlowLayout());
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 30));
@@ -164,7 +172,8 @@ class Window extends JFrame {
         //---------------------------POST LOGIC-----------------------------
         gamePanel.scoreEditor(score);
         gamePanel.highScoreEditor(highScore);
-        gamePanel.level(level);
+        gamePanel.setLevel(level);
+        gamePanel.setFutureFigures(futureFigures);
         gamePanel.highScoreLogic();
         gamePanel.requestFocus();
 

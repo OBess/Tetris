@@ -11,11 +11,14 @@ public class Figures {
     private int matrixRotated;
     private int heightFigure = 4;
     private String[] figure;
+    private String[] futureFigure;
     //----------------/VARIABLES-----------------
 
 
     //----------------CONSTRUCTOR-----------------
     Figures() {
+        randomizer();
+        figure = futureFigure;
         randomizer();
     }
     //----------------/CONSTRUCTOR----------------
@@ -24,6 +27,10 @@ public class Figures {
     //-------------------PUBLIC--------------------
     public String[] getFigure() {
         return figure;
+    }
+
+    public String[] getFutureFigure() {
+        return futureFigure;
     }
 
     public int getHeightFigure() {
@@ -66,30 +73,27 @@ public class Figures {
         int random = new Random().nextInt(7);
         switch (random) {
             case 0:
-                figure = I;
+                futureFigure = I;
                 break;
             case 1:
-                figure = J;
+                futureFigure = J;
                 break;
             case 2:
-                figure = L;
+                futureFigure = L;
                 break;
             case 3:
-                figure = O;
+                futureFigure = O;
                 break;
             case 4:
-                figure = S;
+                futureFigure = S;
                 break;
             case 5:
-                figure = T;
+                futureFigure = T;
                 break;
             case 6:
-                figure = Z;
+                futureFigure = Z;
                 break;
         }
-        random = new Random().nextInt(figure.length);
-        for (int i = 0; i < random; i++)
-            rotate();
 //       figure = I;
     }
 
@@ -97,6 +101,10 @@ public class Figures {
         matrixY = 0;
         matrixRotate = 0;
         matrixRotated = 0;
+        figure = futureFigure;
+        int random = new Random().nextInt(futureFigure.length);
+        for (int i = 0; i < random; i++)
+            rotate();
         randomizer();
     }
 
@@ -108,6 +116,7 @@ public class Figures {
         }
 
         matrixRotated = matrixRotate;
+
         if (matrixRotated + heightFigure < figure.length) {
             matrixRotated += heightFigure;
         } else {

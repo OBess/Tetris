@@ -59,6 +59,8 @@ public class GamePanel extends JPanel implements ActionListener {
     private JLabel level = new JLabel();
 
     private Figures figure = new Figures();
+
+    private FutureFigures futureFigures;
     //------------------/OBJECTS------------------
 
 
@@ -153,6 +155,8 @@ public class GamePanel extends JPanel implements ActionListener {
         figure.setMatrixWidth(getWidth() / scale);
         figure.reset();
 
+        resetFutureFigure();
+
         score.setText("Score: 0");
         level.setText("Level: " + levelInt);
 
@@ -191,7 +195,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.highScore = highScore;
     }
 
-    public void level(JLabel level) {
+    public void setLevel(JLabel level) {
         this.level = level;
     }
 
@@ -203,6 +207,12 @@ public class GamePanel extends JPanel implements ActionListener {
             writeToHighScore();
         }
     }
+
+    public void setFutureFigures(FutureFigures futureFigures) {
+        this.futureFigures = futureFigures;
+        resetFutureFigure();
+    }
+
     //-------------------/PUBLIC--------------------
 
 
@@ -353,6 +363,7 @@ public class GamePanel extends JPanel implements ActionListener {
             figure.reset();
             resetMatrix();
             figure.setMatrixX(matrixW / 2);
+            resetFutureFigure();
         } else
             figure.setMatrixY(figure.getMatrixY() + 1);
     }
@@ -421,11 +432,9 @@ public class GamePanel extends JPanel implements ActionListener {
                         up = true;
                         count--;
                     } else {
-                        if (rot) {
-                            if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
-                                    figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
-                                rot = false;
-                            }
+                        if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' &&
+                                figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
+                            rot = false;
                         }
                     }
                 }
@@ -501,6 +510,16 @@ public class GamePanel extends JPanel implements ActionListener {
         if (timer.getDelay() % 50 == 0) {
             levelInt++;
             level.setText("Level: " + levelInt);
+        }
+    }
+
+    private void resetFutureFigure() {
+        if (futureFigures != null) {
+            this.futureFigures.setScale(scale);
+            this.futureFigures.setMatrixH(figure.getHeightFigure());
+            this.futureFigures.setFigure(figure.getFutureFigure());
+            this.futureFigures.setRotate(figure.getMatrixRotate());
+            this.futureFigures.repaint();
         }
     }
     //------------------/LOGIC BLOCK-----------------
