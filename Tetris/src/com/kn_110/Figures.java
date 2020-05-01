@@ -63,34 +63,35 @@ public class Figures {
     }
 
     public void randomizer() {
-        int random = new Random().nextInt(7);
-        switch (random) {
-            case 0:
-                figure = I;
-                break;
-            case 1:
-                figure = J;
-                break;
-            case 2:
-                figure = L;
-                break;
-            case 3:
-                figure = O;
-                break;
-            case 4:
-                figure = S;
-                break;
-            case 5:
-                figure = T;
-                break;
-            case 6:
-                figure = Z;
-                break;
-        }
-
-        random = new Random().nextInt(figure.length);
-        for (int i = 0; i < random; i++)
-            rotate();
+//        int random = new Random().nextInt(7);
+//        switch (random) {
+//            case 0:
+//                figure = I;
+//                break;
+//            case 1:
+//                figure = J;
+//                break;
+//            case 2:
+//                figure = L;
+//                break;
+//            case 3:
+//                figure = O;
+//                break;
+//            case 4:
+//                figure = S;
+//                break;
+//            case 5:
+//                figure = T;
+//                break;
+//            case 6:
+//                figure = Z;
+//                break;
+//        }
+//
+//        random = new Random().nextInt(figure.length);
+//        for (int i = 0; i < random; i++)
+//            rotate();
+       figure = I;
     }
 
     public void reset() {

@@ -246,7 +246,6 @@ public class GamePanel extends JPanel implements ActionListener {
       stringInTheMiddle("Game Over", g, Color.RED, 50, 1, 2);
       stringInTheMiddle("press any key to restart", g, Color.WHITE, 20, 0, 1.7);
       if (!isEnd) {
-        soundFXLoader("Snake\\sounds\\game_over.wav");
         isEnd = true;
       }
     }
@@ -395,15 +394,18 @@ public class GamePanel extends JPanel implements ActionListener {
 
   private void rotate() {
     boolean rot = true;
+    boolean up = false;
+    int count = 0;
     for (int i = 0; i < figure.getHeightFigure(); i++) {
       for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotated()].length(); j++) {
         if (matrix[i + figure.getMatrixRotated()].charAt(j) != ' ') {
           if (j + figure.getMatrixX() < 0) {
-            figure.setMatrixX(figure.getMatrixX() + 1);
+            count++;
           } else if (j + figure.getMatrixX() >= matrixW) {
-            figure.setMatrixX(figure.getMatrixX() - 1);
+            count--;
           } else if (i + figure.getMatrixY() >= matrixH) {
-            figure.setMatrixY(figure.getMatrixY() + 1);
+            count--;
+            up = true;
           } else if (matrix[i + figure.getMatrixY()].charAt(j + figure.getMatrixX()) != ' ' && figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) == ' ') {
             rot = false;
           }
@@ -415,6 +417,10 @@ public class GamePanel extends JPanel implements ActionListener {
         break;
     }
     if (rot) {
+      if (up)
+        figure.setMatrixY(figure.getMatrixY() + count);
+      else
+        figure.setMatrixX(figure.getMatrixX() + count);
       figure.rotate();
       resetMatrix();
       visualizeBlock();
@@ -433,13 +439,15 @@ public class GamePanel extends JPanel implements ActionListener {
         resetMatrix();
         visualizeBlock();
         scorePoints++;
+        soundFXLoader("Tetris\\sounds\\1X.wav");
         count++;
         score.setText("Score: " + scorePoints);
         repaint();
       }
     }
     if (count == 4) {
-      scorePoints += 20;
+      scorePoints += 16;
+      soundFXLoader("Tetris\\sounds\\4X.wav");
       score.setText("Score: " + scorePoints);
     }
   }
@@ -457,6 +465,7 @@ public class GamePanel extends JPanel implements ActionListener {
               || matrix[0].indexOf('p') != -1
               || matrix[0].indexOf('h') != -1) {
         scorePoints = 0;
+        soundFXLoader("Tetris\\sounds\\game_over.wav");
         lost = true;
       }
       skip = false;
@@ -546,22 +555,27 @@ public class GamePanel extends JPanel implements ActionListener {
     public void keyPressed(KeyEvent e) {
       if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
         moveX(-1);
+        soundFXLoader("Tetris\\sounds\\move_left.wav");
         repaint();
       }
       if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)) {
         rotate();
         repaint();
+        soundFXLoader("Tetris\\sounds\\rotate.wav");
       }
       if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {
         moveY();
         repaint();
+        soundFXLoader("Tetris\\sounds\\move_down.wav");
       }
       if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
         moveX(1);
         repaint();
+        soundFXLoader("Tetris\\sounds\\move_right.wav");
       }
       if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
         if (fallOnce) {
+          soundFXLoader("Tetris\\sounds\\skip.wav");
           fall = true;
           while (fall) {
             moveY();
