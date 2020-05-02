@@ -12,7 +12,8 @@ public class FutureFigures extends JPanel {
 
     //--------------CONSTRUCTOR----------------
     FutureFigures() {
-        setBackground(Color.BLACK);
+//        setBackground(Color.BLACK);
+        setBackground(new Color(66, 66, 66));
     }
     //--------------/CONSTRUCTOR----------------
 
@@ -48,7 +49,7 @@ public class FutureFigures extends JPanel {
         for (int i = 0; i < matrixH; i++) {
             for (int j = 0; j < figure[i].length(); j++) {
                 if (figure[i].charAt(j) == ' ') {
-                    g.setColor(new Color(25, 28, 78));
+                    g.setColor(new Color(41, 42, 49));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (figure[i].charAt(j) == 'r') {
                     g.setColor(new Color(255, 0, 0));
@@ -86,6 +87,9 @@ public class FutureFigures extends JPanel {
     //---------IMPLEMENTED AND EXTENDED---------
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(new Color(66,66,66));
+        g.fillRect(0,0,1000,1000);
         paintFigure(g);
     }
     //---------/IMPLEMENTED AND EXTENDED--------

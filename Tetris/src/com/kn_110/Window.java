@@ -28,11 +28,11 @@ class Window extends JFrame {
     private final JButton mute;
     private final ImageIcon muteIcon;
     private final ImageIcon unMuteIcon;
+    private final ImageIcon icon;
+    private final Image iconImage;
 
     private final Timer timer;
     private final Timer observer;
-
-    private boolean buttonState;
 
     private int tm = 0;
     //------------------------/INITIALIZATION---------------------------
@@ -57,6 +57,8 @@ class Window extends JFrame {
         mute = new JButton();
         muteIcon = new ImageIcon("Tetris\\images\\Mute_zipped.png");
         unMuteIcon = new ImageIcon("Tetris\\images\\unMute_zipped.png");
+        icon = new ImageIcon("Tetris\\images\\icon.png");
+        iconImage = icon.getImage();
 
         gamePanel = new GamePanel();
         futureFigures = new FutureFigures();
@@ -80,7 +82,7 @@ class Window extends JFrame {
         observer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (gamePanel.getEndGame() || gamePanel.getReseted() ) {
+                if (gamePanel.getEndGame() || gamePanel.getReseted()) {
                     tm = 0;
                     timerLabel.setText("Time: 00:00:00");
                     timerLabel.updateUI();
@@ -119,8 +121,7 @@ class Window extends JFrame {
         mute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonState = !buttonState;
-                if (!buttonState)
+                if (gamePanel.getMuted())
                     mute.setIcon(muteIcon);
                 else
                     mute.setIcon(unMuteIcon);
@@ -134,7 +135,7 @@ class Window extends JFrame {
         mute.setBackground(new Color(66, 66, 66));
         mute.setBorder(null);
 
-        futureFigures.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 19,new Color(66,66,66)));
+//        futureFigures.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 19,new Color(66,66,66)));
 
         buttonPanel.setBackground(new Color(66, 66, 66));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
@@ -151,10 +152,11 @@ class Window extends JFrame {
         borderPanel1.add(gridPanel, "North");
         borderPanel1.add(timerLabel, "Center");
 
-        borderPanel.setLayout(new GridLayout(3,0, 0, 30));
+        borderPanel.setLayout(new GridLayout(3, 0, 0, 30));
         borderPanel.setBackground(new Color(66, 66, 66));
-        borderPanel.add(borderPanel1 );
+        borderPanel.add(borderPanel1);
         borderPanel.add(futureFigures);
+        borderPanel.add(mute);
 
         leftPanel.setLayout(new FlowLayout());
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 30));
@@ -180,12 +182,6 @@ class Window extends JFrame {
         observer.start();
         this.timer.start();
 
-        try {
-            Robot rb = new Robot();
-            rb.keyPress(KeyEvent.VK_SPACE);
-            rb.keyRelease(KeyEvent.VK_SPACE);
-        } catch (AWTException ignored) {
-        }
 
         //---------------------------/POST LOGIC-----------------------------
 
@@ -203,6 +199,14 @@ class Window extends JFrame {
         setUndecorated(false);
         setResizable(false);
         setVisible(true);
+        setIconImage(iconImage);
+
+        try {
+            Robot rb = new Robot();
+            rb.keyPress(KeyEvent.VK_SPACE);
+            rb.keyRelease(KeyEvent.VK_SPACE);
+        } catch (AWTException ignored) {
+        }
         //----------------------------/FRAME--------------------------------
 
 

@@ -102,12 +102,12 @@ public class GamePanel extends JPanel implements ActionListener {
         highScorePoints = Integer.parseInt(mainString);
     }
 
-    private void writeToHighScore() {
+    private void writeToHighScore(int score) {
         try {
             highScoreFile = new File("Tetris\\information\\high_score.txt");
             FileWriter myWriter = new FileWriter(highScoreFile);
             myWriter.append("");
-            myWriter.write(Integer.toString(scorePoints));
+            myWriter.write(Integer.toString(score));
             myWriter.close();
         } catch (IOException e1) {
             System.out.println("An error occurred.");
@@ -143,7 +143,7 @@ public class GamePanel extends JPanel implements ActionListener {
         lost = false;
         pause = false;
         inited = true;
-        muted = false;
+        muted = true;
 
         delay = 400;
 
@@ -204,9 +204,10 @@ public class GamePanel extends JPanel implements ActionListener {
     public void highScoreLogic() {
         if (scorePoints < highScorePoints) {
             highScore.setText("High Score: " + highScorePoints);
+            writeToHighScore(highScorePoints);
         } else {
             highScore.setText("High Score: " + scorePoints);
-            writeToHighScore();
+            writeToHighScore(scorePoints);
         }
     }
 
@@ -223,7 +224,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = 0; i < matrixH; i++) {
             for (int j = 0; j < matrixW; j++) {
                 if (matrix[i].charAt(j) == ' ') {
-                    g.setColor(new Color(25, 28, 78));
+                    g.setColor(new Color(41, 42, 49));
                     g.fillRect(j * scale, i * scale, scale, scale);
                 } else if (matrix[i].charAt(j) == 'r') {
                     g.setColor(new Color(255, 0, 0));
