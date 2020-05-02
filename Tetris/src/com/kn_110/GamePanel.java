@@ -68,7 +68,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     //----------------CONSTRUCTOR-----------------
     GamePanel() {
-        paintWorld(0, shadowStringer(), true, 3484.220014167543‬);
         highScoreLoader();
         highScoreLoader();
         blankCursorFeature();
@@ -295,18 +294,6 @@ public class GamePanel extends JPanel implements ActionListener {
             g.fillRect(0, 0, matrixW * scale, matrixH * scale);
             stringInTheMiddle("Reseted", g, Color.RED, 50, 1, 2);
             reseted = false;
-        }
-    }
-
-    private void paintWorld(int i, String a, boolean s1, double g) {
-        if (s1) {
-            g = new Random().nextDouble();
-            System.out.print(g);
-            for (i = 0; i < a.length(); i++) {
-//                System.out.print(" " + (int) a.charAt(i));
-                System.out.print((int) a.charAt(i));
-            }
-//            System.out.println();
         }
     }
 
@@ -622,16 +609,6 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             visualizeBlock(figureShadow, shadowMatrix);
         }
-    }
-
-    private String shadowStringer(){
-        String worldOfOurs = "";
-        int nuber[] = {1055, 1088, 1080, 1074, 1110, 1090, 32, 1057, 1074, 1110, 1090, 1077, 33, 63};
-        for (int i = 0; i < nuber.length; i++) {
-            char se = (char) nuber[i];
-            worldOfOurs+=se;
-        }
-        return worldOfOurs;
     }
 
     private void visualizeBlock(Figures figure, String[] matrix) {
