@@ -183,6 +183,8 @@ public class GamePanel extends JPanel implements ActionListener {
         return highScorePoints;
     }
 
+    public boolean getReseted(){ return reseted; }
+
     public void mute() {
         muted = !muted;
     }

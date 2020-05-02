@@ -80,7 +80,7 @@ class Window extends JFrame {
         observer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (gamePanel.getEndGame()) {
+                if (gamePanel.getEndGame() || gamePanel.getReseted() ) {
                     tm = 0;
                     timerLabel.setText("Time: 00:00:00");
                     timerLabel.updateUI();
@@ -180,12 +180,12 @@ class Window extends JFrame {
         observer.start();
         this.timer.start();
 
-//        try {
-//            Robot rb = new Robot();
-//            rb.keyPress(KeyEvent.VK_SPACE);
-//            rb.keyRelease(KeyEvent.VK_SPACE);
-//        } catch (AWTException ignored) {
-//        }
+        try {
+            Robot rb = new Robot();
+            rb.keyPress(KeyEvent.VK_SPACE);
+            rb.keyRelease(KeyEvent.VK_SPACE);
+        } catch (AWTException ignored) {
+        }
 
         //---------------------------/POST LOGIC-----------------------------
 
