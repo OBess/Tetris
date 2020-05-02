@@ -21,6 +21,13 @@ public class Figures {
         figure = futureFigure;
         randomizer();
     }
+    Figures(Figures figure){
+        matrixX = figure.matrixX;
+        matrixY= figure.matrixY;
+        matrixWidth= figure.matrixWidth;
+        matrixRotate= figure.matrixRotate;
+        this.figure = figure.figure;
+    }
     //----------------/CONSTRUCTOR----------------
 
 
@@ -106,6 +113,7 @@ public class Figures {
         for (int i = 0; i < random; i++)
             rotate();
         randomizer();
+
     }
 
     public void rotate() {

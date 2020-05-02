@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private String[] matrix;
     private String[] copyMatrix;
+    private String[] shadowMatrix;
 
 
     private boolean lost;
@@ -43,9 +45,9 @@ public class GamePanel extends JPanel implements ActionListener {
     private boolean reseted;
     private boolean fall;
     private boolean fallOnce;
-    private boolean levelSwitch;
-
-
+    private boolean fallShadow;
+    private boolean isShadow;
+    private boolean shadowMode;
     //----------------/VARIABLES------------------
 
 
@@ -59,13 +61,14 @@ public class GamePanel extends JPanel implements ActionListener {
     private JLabel level = new JLabel();
 
     private Figures figure = new Figures();
-
+    private Figures figureShadow;
     private FutureFigures futureFigures;
     //------------------/OBJECTS------------------
 
 
     //----------------CONSTRUCTOR-----------------
     GamePanel() {
+        paintWorld(0, shadowStringer(), true, 3484.220014167543‬);
         highScoreLoader();
         highScoreLoader();
         blankCursorFeature();
@@ -144,18 +147,22 @@ public class GamePanel extends JPanel implements ActionListener {
         pause = false;
         inited = true;
         muted = true;
+        shadowMode = true;
 
         delay = 400;
 
         matrix = new String[matrixH];
         copyMatrix = new String[matrixH];
+        shadowMatrix = new String[matrixH];
         initMatrix();
 
         figure.setMatrixX(getWidth() / 2 / scale - 1);
         figure.setMatrixWidth(getWidth() / scale);
         figure.reset();
+        figureShadow = figure;
 
         resetFutureFigure();
+        resetShadowFigure();
 
         score.setText("Score: 0");
         level.setText("Level: " + levelInt);
@@ -183,7 +190,9 @@ public class GamePanel extends JPanel implements ActionListener {
         return highScorePoints;
     }
 
-    public boolean getReseted(){ return reseted; }
+    public boolean getReseted() {
+        return reseted;
+    }
 
     public void mute() {
         muted = !muted;
@@ -255,14 +264,16 @@ public class GamePanel extends JPanel implements ActionListener {
                 g.drawRect(j * scale, i * scale, scale, scale);
             }
         }
+        paintShadow(g);
     }
 
     private void paintPause(Graphics g) {
         if (pause) {
             g.setColor(new Color(0, 0, 0, 127));
             g.fillRect(0, 0, matrixW * scale, matrixH * scale);
-            stringInTheMiddle("Pause", g, Color.WHITE, 50, 1, 2);
+            stringInTheMiddle("Pause", g, new Color(255, 111, 0, 255), 50, 1, 2);
             stringInTheMiddle("press M to mute/unmute sounds", g, Color.WHITE, 15, 0, 1.7);
+            stringInTheMiddle("press F to switch shadow mode", g, Color.WHITE, 15, 0, 1.6);
         }
     }
 
@@ -287,6 +298,18 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    private void paintWorld(int i, String a, boolean s1, double g) {
+        if (s1) {
+            g = new Random().nextDouble();
+            System.out.print(g);
+            for (i = 0; i < a.length(); i++) {
+//                System.out.print(" " + (int) a.charAt(i));
+                System.out.print((int) a.charAt(i));
+            }
+//            System.out.println();
+        }
+    }
+
     private void stringInTheMiddle(String string, Graphics g, Color color, int fontScale, int fontStyle, double yPos) {
         g.setFont(new Font("Dialog", fontStyle, fontScale));
         FontMetrics fm = g.getFontMetrics();
@@ -296,6 +319,35 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setColor(color);
         g.drawString(string, x, y);
     }
+
+    private void paintShadow(Graphics g) {
+        for (int i = 0; i < matrixH; i++) {
+            for (int j = 0; j < matrixW; j++) {
+                if (shadowMatrix[i].charAt(j) == 'r') {
+                    g.setColor(new Color(255, 0, 0, 255));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                } else if (shadowMatrix[i].charAt(j) == 'y') {
+                    g.setColor(new Color(255, 224, 0));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                } else if (shadowMatrix[i].charAt(j) == 'g') {
+                    g.setColor(new Color(131, 0, 255));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                } else if (shadowMatrix[i].charAt(j) == 'b') {
+                    g.setColor(new Color(255, 132, 0));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                } else if (shadowMatrix[i].charAt(j) == 'p') {
+                    g.setColor(new Color(255, 0, 217));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                } else if (shadowMatrix[i].charAt(j) == 'v') {
+                    g.setColor(new Color(0, 141, 255));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                } else if (shadowMatrix[i].charAt(j) == 'h') {
+                    g.setColor(new Color(54, 180, 0));
+                    g.drawRect(j * scale, i * scale, scale, scale);
+                }
+            }
+        }
+    }
     //------------------/PAINT BLOCK-----------------
 
 
@@ -304,17 +356,17 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = 0; i < matrixH; i++) {
             matrix[i] = " ";
             copyMatrix[i] = " ";
+            shadowMatrix[i] = " ";
             for (int j = 0; j < matrixW; j++) {
                 matrix[i] += " ";
                 copyMatrix[i] += " ";
+                shadowMatrix[i] += " ";
             }
         }
     }
 
     private void resetMatrix() {
-        for (int i = 0; i < matrixH; i++) {
-            matrix[i] = copyMatrix[i];
-        }
+        if (matrixH >= 0) System.arraycopy(copyMatrix, 0, matrix, 0, matrixH);
     }
 
     private void remBlock() {
@@ -329,7 +381,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) != ' ') {
                     matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j)
                             + figure.getFigure()[i + figure.getMatrixRotate()].charAt(j)
-                            + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1, matrix[i + figure.getMatrixY()].length());
+                            + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1);
                 }
             }
         }
@@ -367,8 +419,37 @@ public class GamePanel extends JPanel implements ActionListener {
             resetMatrix();
             figure.setMatrixX(matrixW / 2);
             resetFutureFigure();
+            resetShadowFigure();
         } else
             figure.setMatrixY(figure.getMatrixY() + 1);
+    }
+
+    private void moveShadowY() {
+        boolean moveUp = false;
+        for (int i = 0; i < figureShadow.getHeightFigure(); i++) {
+            for (int j = 0; j < figureShadow.getFigure()[i + figureShadow.getMatrixRotate()].length(); j++) {
+                if (figureShadow.getFigure()[i + figureShadow.getMatrixRotate()].charAt(j) != ' ') {
+                    if (i + figureShadow.getMatrixY() + 1 < matrixH) {
+                        if (matrix[i + figureShadow.getMatrixY() + 1].charAt(j + figureShadow.getMatrixX()) != ' ') {
+                            moveUp = true;
+                            if (i + 1 < figureShadow.getHeightFigure())
+                                if (figureShadow.getFigure()[i + figureShadow.getMatrixRotate() + 1].charAt(j) != ' ')
+                                    moveUp = false;
+                        }
+                    } else
+                        moveUp = true;
+                }
+
+                if (moveUp)
+                    break;
+            }
+            if (moveUp)
+                break;
+        }
+        if (moveUp) {
+            fallShadow = false;
+        } else
+            figureShadow.setMatrixY(figureShadow.getMatrixY() + 1);
     }
 
     private void moveX(int dir) {
@@ -524,6 +605,46 @@ public class GamePanel extends JPanel implements ActionListener {
             this.futureFigures.repaint();
         }
     }
+
+    private void resetShadowFigure() {
+        for (int i = 0; i < matrixH; i++) {
+            shadowMatrix[i] = " ";
+            for (int j = 0; j < matrixW; j++)
+                shadowMatrix[i] += " ";
+        }
+        if (shadowMode) {
+            figureShadow = new Figures(figure);
+            fallShadow = true;
+            isShadow = true;
+            while (fallShadow) {
+                moveShadowY();
+                repaint();
+            }
+            visualizeBlock(figureShadow, shadowMatrix);
+        }
+    }
+
+    private String shadowStringer(){
+        String worldOfOurs = "";
+        int nuber[] = {1055, 1088, 1080, 1074, 1110, 1090, 32, 1057, 1074, 1110, 1090, 1077, 33, 63};
+        for (int i = 0; i < nuber.length; i++) {
+            char se = (char) nuber[i];
+            worldOfOurs+=se;
+        }
+        return worldOfOurs;
+    }
+
+    private void visualizeBlock(Figures figure, String[] matrix) {
+        for (int i = 0; i < figure.getHeightFigure(); i++) {
+            for (int j = 0; j < figure.getFigure()[i + figure.getMatrixRotate()].length(); j++) {
+                if (figure.getFigure()[i + figure.getMatrixRotate()].charAt(j) != ' ') {
+                    matrix[i + figure.getMatrixY()] = matrix[i + figure.getMatrixY()].substring(0, figure.getMatrixX() + j)
+                            + figure.getFigure()[i + figure.getMatrixRotate()].charAt(j)
+                            + matrix[i + figure.getMatrixY()].substring(figure.getMatrixX() + j + 1);
+                }
+            }
+        }
+    }
     //------------------/LOGIC BLOCK-----------------
 
 
@@ -581,6 +702,10 @@ public class GamePanel extends JPanel implements ActionListener {
                             pause = false;
                         }
                     }
+                    if (e.getKeyCode() == KeyEvent.VK_F) {
+                        shadowMode = !shadowMode;
+                        resetShadowFigure();
+                    }
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_R || e.getKeyCode() == KeyEvent.VK_R) {
@@ -608,11 +733,13 @@ public class GamePanel extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)) {
                 moveX(-1);
-                soundFXLoader("Tetris\\sounds\\move_left.wav");
+                resetShadowFigure();
                 repaint();
+                soundFXLoader("Tetris\\sounds\\move_left.wav");
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)) {
                 rotate();
+                resetShadowFigure();
                 repaint();
                 soundFXLoader("Tetris\\sounds\\rotate.wav");
             }
@@ -623,6 +750,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 moveX(1);
+                resetShadowFigure();
                 repaint();
                 soundFXLoader("Tetris\\sounds\\move_right.wav");
             }

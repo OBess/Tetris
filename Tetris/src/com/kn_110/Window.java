@@ -135,8 +135,6 @@ class Window extends JFrame {
         mute.setBackground(new Color(66, 66, 66));
         mute.setBorder(null);
 
-//        futureFigures.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 19,new Color(66,66,66)));
-
         buttonPanel.setBackground(new Color(66, 66, 66));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
         buttonPanel.add(mute);
@@ -181,8 +179,6 @@ class Window extends JFrame {
 
         observer.start();
         this.timer.start();
-
-
         //---------------------------/POST LOGIC-----------------------------
 
 
