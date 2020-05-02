@@ -55,9 +55,9 @@ class Window extends JFrame {
         level = new JLabel();
 
         mute = new JButton();
-        muteIcon = new ImageIcon("Tetris\\images\\Mute_zipped.png");
-        unMuteIcon = new ImageIcon("Tetris\\images\\unMute_zipped.png");
-        icon = new ImageIcon("Tetris\\images\\icon.png");
+        muteIcon = new ImageIcon("Tetris\\data\\images\\Mute_zipped.png");
+        unMuteIcon = new ImageIcon("Tetris\\data\\images\\unMute_zipped.png");
+        icon = new ImageIcon("Tetris\\data\\images\\icon.png");
         iconImage = icon.getImage();
 
         gamePanel = new GamePanel();
@@ -175,34 +175,35 @@ class Window extends JFrame {
         gamePanel.setLevel(level);
         gamePanel.setFutureFigures(futureFigures);
         gamePanel.highScoreLogic();
-        gamePanel.requestFocus();
-
         observer.start();
         this.timer.start();
         //---------------------------/POST LOGIC-----------------------------
 
 
         //----------------------------FRAME---------------------------------
-        setTitle("Tetris 0.0");
+        setTitle("Tetris 1.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(masterPanel);
 
-        if (gamePanel.getHighScore() > 9999)
+        if (gamePanel.getHighScore() > 9999) {
             setSize(700 + highScore.getText().substring(11,
                     highScore.getText().length() - 1).length() * 10, 726);
-        else
+        }
+        else {
             setSize(700 + 40, 726);
+        }
         setUndecorated(false);
         setResizable(false);
         setVisible(true);
         setIconImage(iconImage);
+        gamePanel.requestFocus();
 
-        try {
-            Robot rb = new Robot();
-            rb.keyPress(KeyEvent.VK_SPACE);
-            rb.keyRelease(KeyEvent.VK_SPACE);
-        } catch (AWTException ignored) {
-        }
+//        try {
+//            Robot rb = new Robot();
+//            rb.keyPress(KeyEvent.VK_SPACE);
+//            rb.keyRelease(KeyEvent.VK_SPACE);
+//        } catch (AWTException ignored) {
+//        }
         //----------------------------/FRAME--------------------------------
 
 

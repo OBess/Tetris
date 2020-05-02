@@ -72,7 +72,6 @@ public class GamePanel extends JPanel implements ActionListener {
         highScoreLoader();
         blankCursorFeature();
         setOpaque(true);
-        setFocusable(true);
         setBackground(new Color(66, 66, 66));
         setSize(W, H);
         addKeyListener(new gameKeyAdapter());
@@ -83,6 +82,8 @@ public class GamePanel extends JPanel implements ActionListener {
         matrixW = getWidth() / scale;
 
         initGame();
+
+//        setFocusable(true);
     }
     //----------------/CONSTRUCTOR----------------
 
@@ -92,7 +93,7 @@ public class GamePanel extends JPanel implements ActionListener {
         StringBuffer bufferString = new StringBuffer("");
         String mainString = "";
         try {
-            highScoreFile = new File("Tetris\\information\\high_score.txt");
+            highScoreFile = new File("Tetris\\data\\information\\high_score.txt");
             Scanner myReader = new Scanner(highScoreFile);
             mainString = myReader.nextLine();
             bufferString.append(mainString);
@@ -106,7 +107,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void writeToHighScore(int score) {
         try {
-            highScoreFile = new File("Tetris\\information\\high_score.txt");
+            highScoreFile = new File("Tetris\\data\\information\\high_score.txt");
             FileWriter myWriter = new FileWriter(highScoreFile);
             myWriter.append("");
             myWriter.write(Integer.toString(score));
@@ -145,7 +146,7 @@ public class GamePanel extends JPanel implements ActionListener {
         lost = false;
         pause = false;
         inited = true;
-        muted = true;
+        muted = false;
         shadowMode = true;
 
         delay = 400;
@@ -538,7 +539,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 resetMatrix();
                 visualizeBlock();
                 scorePoints++;
-                soundFXLoader("Tetris\\sounds\\1X.wav");
+                soundFXLoader("Tetris\\data\\sounds\\1X.wav");
                 count++;
                 score.setText("Score: " + scorePoints);
                 if (timer.getDelay() > 10) {
@@ -551,7 +552,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         if (count == 4) {
             scorePoints += 16;
-            soundFXLoader("Tetris\\sounds\\4X.wav");
+            soundFXLoader("Tetris\\data\\sounds\\4X.wav");
             score.setText("Score: " + scorePoints);
         }
     }
@@ -569,7 +570,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     || matrix[0].indexOf('p') != -1
                     || matrix[0].indexOf('h') != -1) {
                 scorePoints = 0;
-                soundFXLoader("Tetris\\sounds\\game_over.wav");
+                soundFXLoader("Tetris\\data\\sounds\\game_over.wav");
                 lost = true;
             }
             skip = false;
@@ -712,28 +713,28 @@ public class GamePanel extends JPanel implements ActionListener {
                 moveX(-1);
                 resetShadowFigure();
                 repaint();
-                soundFXLoader("Tetris\\sounds\\move_left.wav");
+                soundFXLoader("Tetris\\data\\sounds\\move_left.wav");
             }
             if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)) {
                 rotate();
                 resetShadowFigure();
                 repaint();
-                soundFXLoader("Tetris\\sounds\\rotate.wav");
+                soundFXLoader("Tetris\\data\\sounds\\rotate.wav");
             }
             if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)) {
                 moveY();
                 repaint();
-                soundFXLoader("Tetris\\sounds\\move_down.wav");
+                soundFXLoader("Tetris\\data\\sounds\\move_down.wav");
             }
             if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)) {
                 moveX(1);
                 resetShadowFigure();
                 repaint();
-                soundFXLoader("Tetris\\sounds\\move_right.wav");
+                soundFXLoader("Tetris\\data\\sounds\\move_right.wav");
             }
             if ((e.getKeyCode() == KeyEvent.VK_SPACE)) {
                 if (fallOnce) {
-                    soundFXLoader("Tetris\\sounds\\skip.wav");
+                    soundFXLoader("Tetris\\data\\sounds\\skip.wav");
                     fall = true;
                     while (fall) {
                         moveY();
