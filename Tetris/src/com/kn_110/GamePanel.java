@@ -29,7 +29,6 @@ public class GamePanel extends JPanel implements ActionListener {
     private int scale;
     private int matrixH;
     private int matrixW;
-    private int levelInt;
 
     private String[] matrix;
     private String[] copyMatrix;
@@ -42,7 +41,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private boolean inited;
     private boolean muted;
     private boolean skip;
-    private boolean reseted;
+    private boolean reset;
     private boolean fall;
     private boolean fallOnce;
     private boolean fallShadow;
@@ -58,7 +57,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private JLabel score = new JLabel();
     private JLabel highScore = new JLabel();
-    private JLabel level = new JLabel();
+    private JComboBox level = new JComboBox();
 
     private Figures figure = new Figures();
     private Figures figureShadow;
@@ -80,7 +79,6 @@ public class GamePanel extends JPanel implements ActionListener {
         scale = 30;
         matrixH = getHeight() / scale;
         matrixW = getWidth() / scale;
-
         initGame();
 
 //        setFocusable(true);
@@ -144,7 +142,6 @@ public class GamePanel extends JPanel implements ActionListener {
     //--------------------INI---------------------
     private void initGame() {
         lost = false;
-        pause = false;
         inited = true;
         muted = false;
         shadowMode = true;
@@ -165,37 +162,51 @@ public class GamePanel extends JPanel implements ActionListener {
         resetShadowFigure();
 
         score.setText("Score: 0");
-        level.setText("Level: " + levelInt);
+        if (level.getItemCount() == 8) level.setSelectedIndex(7);
 
         timer = new Timer(delay, this);
-        timer.start();
+//        timer.start();
+        if (!reset) setPaused();
     }
     //-------------------/INI---------------------
 
 
     //-------------------PUBLIC--------------------
-    public boolean getEndGame() {
-        return lost;
-    }
-
-    public boolean getPause() {
-        return pause;
-    }
-
-    public boolean getMuted() {
-        return muted;
-    }
-
     public int getHighScore() {
         return highScorePoints;
     }
 
-    public boolean getReseted() {
-        return reseted;
+    public boolean isEndGame() {
+        return lost;
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
+    public boolean isMuted() {
+        return muted;
+    }
+
+    public boolean isShadowMode() {
+        return shadowMode;
+    }
+
+    public boolean isReset() {
+        return reset;
     }
 
     public void mute() {
         muted = !muted;
+    }
+
+    public void pause() {
+        pause = !pause;
+    }
+
+    public void shadowModify() {
+        shadowMode = !shadowMode;
+        resetShadowFigure();
     }
 
     public void scoreEditor(JLabel score) {
@@ -206,7 +217,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.highScore = highScore;
     }
 
-    public void setLevel(JLabel level) {
+    public void setLevel(JComboBox level) {
         this.level = level;
     }
 
@@ -225,6 +236,28 @@ public class GamePanel extends JPanel implements ActionListener {
         resetFutureFigure();
     }
 
+    public void setLevel(int levelInt) {
+        timer.setDelay(50 * levelInt);
+    }
+
+    public void triggerAction(String name) throws IllegalAccessException {
+        switch (name) {
+            case "mute":
+                mute();
+                break;
+            case "shadowModify":
+                shadowModify();
+                break;
+            case "pause":
+                if (!pause)
+                    setPaused();
+                else
+                    setUnPaused();
+                break;
+            default:
+                throw new IllegalAccessException("Not a function name");
+        }
+    }
     //-------------------/PUBLIC--------------------
 
 
@@ -272,8 +305,12 @@ public class GamePanel extends JPanel implements ActionListener {
             g.setColor(new Color(0, 0, 0, 127));
             g.fillRect(0, 0, matrixW * scale, matrixH * scale);
             stringInTheMiddle("Pause", g, new Color(255, 111, 0, 255), 50, 1, 2);
-            stringInTheMiddle("press M to mute/unmute sounds", g, Color.WHITE, 15, 0, 1.7);
-            stringInTheMiddle("press F to switch shadow mode", g, Color.WHITE, 15, 0, 1.6);
+            stringInTheMiddle("press  [M]  to turn sounds on/off", g, Color.WHITE, 15, 0, 1.7);
+            stringInTheMiddle("press  [F]  to turn shadow mode on/off", g, Color.WHITE, 15, 0, 1.61);
+            stringInTheMiddle("press  [W]  /  [ARROW UP]  to rotate figure", g, Color.WHITE, 15, 0, 1.52);
+            stringInTheMiddle("press  [R]  to reset current game", g, Color.WHITE, 15, 0, 1.45);
+            stringInTheMiddle("press  [SPACE]  to skip movement", g, Color.WHITE, 15, 0, 1.38);
+            stringInTheMiddle("press  [ANY KEY]  to play", g, new Color(20, 134, 0, 211), 17, 0, 1.2);
         }
     }
 
@@ -290,11 +327,11 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void paintResetScreen(Graphics g) {
-        if (reseted) {
+        if (reset) {
             g.setColor(new Color(0, 0, 0, 127));
             g.fillRect(0, 0, matrixW * scale, matrixH * scale);
             stringInTheMiddle("Reseted", g, Color.RED, 50, 1, 2);
-            reseted = false;
+            reset = false;
         }
     }
 
@@ -542,12 +579,13 @@ public class GamePanel extends JPanel implements ActionListener {
                 soundFXLoader("Tetris\\data\\sounds\\1X.wav");
                 count++;
                 score.setText("Score: " + scorePoints);
-                if (timer.getDelay() > 10) {
+                if (timer.getDelay() > 50) {
                     timer.setDelay(timer.getDelay() - 2);
                     levelOutputLogic();
                 }
                 System.out.println(timer.getDelay());
                 repaint();
+                resetShadowFigure();
             }
         }
         if (count == 4) {
@@ -579,8 +617,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void levelOutputLogic() {
         if (timer.getDelay() % 50 == 0) {
-            levelInt++;
-            level.setText("Level: " + levelInt);
+            level.setSelectedIndex(level.getSelectedIndex() - 1);
         }
     }
 
@@ -623,6 +660,18 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
     }
+
+    private void setPaused() {
+        pause = true;
+        timer.stop();
+        repaint();
+    }
+
+    private void setUnPaused() {
+        pause = false;
+        timer.start();
+        repaint();
+    }
     //------------------/LOGIC BLOCK-----------------
 
 
@@ -657,18 +706,16 @@ public class GamePanel extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             if (!lost) {
                 // mute option
-                if (!muted) {
-                    if (e.getKeyCode() == KeyEvent.VK_M)
-                        muted = true;
-                } else {
-                    if (e.getKeyCode() == KeyEvent.VK_M)
-                        muted = false;
+                if (e.getKeyCode() == KeyEvent.VK_M) {
+                    muted = !muted;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_F) {
+                    shadowMode = !shadowMode;
+                    resetShadowFigure();
                 }
                 if (!pause) {
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE || e.getKeyCode() == KeyEvent.VK_TAB) {
-                        timer.stop();
-                        repaint();
-                        pause = true;
+                        setPaused();
                     }
 
                 } else {
@@ -676,20 +723,15 @@ public class GamePanel extends JPanel implements ActionListener {
                     for (int i = 0; i < allKeyCodes.length; i++) {
                         allKeyCodes[i] = i + 1;
                         if (e.getKeyCode() == allKeyCodes[i]) {
-                            timer.start();
-                            pause = false;
+                            setUnPaused();
                         }
-                    }
-                    if (e.getKeyCode() == KeyEvent.VK_F) {
-                        shadowMode = !shadowMode;
-                        resetShadowFigure();
                     }
                 }
 
-                if (e.getKeyCode() == KeyEvent.VK_R || e.getKeyCode() == KeyEvent.VK_R) {
+                if (e.getKeyCode() == KeyEvent.VK_R) {
                     timer.stop();
+                    reset = true;
                     initGame();
-                    reseted = true;
                 }
 
             } else {
@@ -704,6 +746,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
         }
+
     }
 
     class gameKeyAdapter extends KeyAdapter {

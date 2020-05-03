@@ -2,10 +2,7 @@ package com.kn_110;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 // Interface Class
 class Window extends JFrame {
@@ -26,8 +23,11 @@ class Window extends JFrame {
     private final JLabel level;
 
     private final JButton mute;
-    private final ImageIcon muteIcon;
-    private final ImageIcon unMuteIcon;
+    private final JButton SMSwitcher;
+    private final JButton pause;
+
+    private final JComboBox levelChoser;
+
     private final ImageIcon icon;
     private final Image iconImage;
 
@@ -35,11 +35,66 @@ class Window extends JFrame {
     private final Timer observer;
 
     private int tm = 0;
+    private int iconSize = 35;
+    private int iconSize2 = 50;
+    private String[] levelChoserCoices = {
+            "Level: 8",
+            "Level: 7",
+            "Level: 6",
+            "Level: 5",
+            "Level: 4",
+            "Level: 3",
+            "Level: 2",
+            "Level: 1"
+    };
     //------------------------/INITIALIZATION---------------------------
 
+    private void buttonCreator(JButton name,
+                               String state1IconPath,
+                               String state2IconPath,
+                               boolean gamePanelGetter,
+                               String methodName) {
+        ImageIcon state1 = new ImageIcon(new ImageIcon(state1IconPath).getImage().
+                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
+        ImageIcon state2 = new ImageIcon(new ImageIcon(state2IconPath).getImage().
+                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
+
+        name.setIcon(state2);
+        name.setSize(100, 100);
+        name.addActionListener(e -> {
+            if (gamePanelGetter)
+                name.setIcon(state1);
+            else
+                name.setIcon(state2);
+            try {
+                gamePanel.triggerAction(methodName);
+            } catch (IllegalAccessException illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            }
+            gamePanel.requestFocus();
+        });
+        name.setContentAreaFilled(false);
+        name.setFocusPainted(false);
+        name.setOpaque(true);
+        name.setBackground(new Color(66, 66, 66));
+        name.setBorder(null);
+    }
+
+    private void buttonCreator(JButton name,
+                               String state1IconPath,
+                               String state2IconPath,
+                               boolean gamePanelGetter) {
+        ImageIcon state1 = new ImageIcon(new ImageIcon(state1IconPath).getImage().
+                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
+        ImageIcon state2 = new ImageIcon(new ImageIcon(state2IconPath).getImage().
+                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
+        if (gamePanelGetter)
+            name.setIcon(state1);
+        else
+            name.setIcon(state2);
+    }
 
     Window() {
-
 
         //------------------------NEW OBJECTS---------------------------
         masterPanel = new JPanel();
@@ -48,6 +103,8 @@ class Window extends JFrame {
         borderPanel = new JPanel();
         borderPanel1 = new JPanel();
         buttonPanel = new JPanel();
+        gamePanel = new GamePanel();
+        futureFigures = new FutureFigures();
 
         score = new JLabel();
         highScore = new JLabel();
@@ -55,46 +112,51 @@ class Window extends JFrame {
         level = new JLabel();
 
         mute = new JButton();
-        muteIcon = new ImageIcon("Tetris\\data\\images\\Mute_zipped.png");
-        unMuteIcon = new ImageIcon("Tetris\\data\\images\\unMute_zipped.png");
+        SMSwitcher = new JButton();
+        pause = new JButton();
+
+        levelChoser = new JComboBox(levelChoserCoices);
+        levelChoser.setSelectedIndex(7);
+
         icon = new ImageIcon("Tetris\\data\\images\\icon.png");
         iconImage = icon.getImage();
-
-        gamePanel = new GamePanel();
-        futureFigures = new FutureFigures();
         //------------------------/NEW OBJECTS---------------------------
 
 
         //------------------------------UI-------------------------------
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!gamePanel.getEndGame()) {
-                    if (!gamePanel.getPause()) {
-                        String time = String.format("%02d:%02d:%02d", tm / 360, tm / 60, tm % 60);
-                        tm += 1;
-                        timerLabel.setText("Time: " + time);
-                    }
+        timer = new Timer(1000, e -> {
+            if (!gamePanel.isEndGame()) {
+                if (!gamePanel.isPause()) {
+                    String time = String.format("%02d:%02d:%02d", tm / 3600, tm / 60, tm % 60);
+                    tm += 1;
+                    timerLabel.setText("Time: " + time);
                 }
             }
         });
 
-        observer = new Timer(1, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (gamePanel.getEndGame() || gamePanel.getReseted()) {
-                    tm = 0;
-                    timerLabel.setText("Time: 00:00:00");
-                    timerLabel.updateUI();
-                }
-                if (gamePanel.getMuted()) {
-                    mute.setIcon(muteIcon);
-                } else {
-                    mute.setIcon(unMuteIcon);
-                }
-                if (gamePanel.getHighScore() > 9999)
-                    setSize(700 + highScore.getText().substring(11,
-                            highScore.getText().length() - 1).length() * 10, 726);
+        observer = new Timer(0, e -> {
+            if (gamePanel.isEndGame() || gamePanel.isReset()) {
+                tm = 0;
+                timerLabel.setText("Time: 00:00:00");
+                timerLabel.updateUI();
+            }
+            buttonCreator(mute,
+                    "Tetris\\data\\images\\Mute.png",
+                    "Tetris\\data\\images\\unMute.png",
+                    gamePanel.isMuted());
+            buttonCreator(SMSwitcher,
+                    "Tetris\\data\\images\\SMSwitcherIcon.png",
+                    "Tetris\\data\\images\\SMSwitcherIcon2.png",
+                    gamePanel.isShadowMode());
+            buttonCreator(pause,
+                    "Tetris\\data\\images\\play.png",
+                    "Tetris\\data\\images\\pause.png",
+                    gamePanel.isPause());
+            if (gamePanel.getHighScore() > 9999)
+                setSize(700 + highScore.getText().substring(11,
+                        highScore.getText().length() - 1).length() * 10, 726);
+            if (!gamePanel.isPause()) {
+                gamePanel.requestFocus();
             }
         });
 
@@ -108,6 +170,13 @@ class Window extends JFrame {
         level.setFont(new Font("Dialog", Font.BOLD, 20));
         level.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
+        levelChoser.setFont(new Font("Dialog", Font.BOLD, 20));
+        levelChoser.setAlignmentX(LEFT_ALIGNMENT);
+        levelChoser.addActionListener(e -> {
+            gamePanel.requestFocus();
+            gamePanel.setLevel(levelChoser.getSelectedIndex() + 1);
+        });
+
         score.setText("Score: 0");
         score.setFont(new Font("Dialog", Font.BOLD, 20));
         score.setForeground(new Color(255, 255, 255));
@@ -116,45 +185,50 @@ class Window extends JFrame {
         highScore.setFont(new Font("Dialog", Font.BOLD, 20));
         highScore.setForeground(new Color(222, 222, 222));
 
-        mute.setIcon(unMuteIcon);
-        mute.setSize(100, 100);
-        mute.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (gamePanel.getMuted())
-                    mute.setIcon(muteIcon);
-                else
-                    mute.setIcon(unMuteIcon);
-                gamePanel.mute();
-                gamePanel.requestFocus();
-            }
-        });
-        mute.setContentAreaFilled(false);
-        mute.setFocusPainted(false);
-        mute.setOpaque(true);
-        mute.setBackground(new Color(66, 66, 66));
-        mute.setBorder(null);
+        buttonCreator(mute,
+                "Tetris\\data\\images\\Mute.png",
+                "Tetris\\data\\images\\unMute.png",
+                gamePanel.isMuted(),
+                "mute"
+        );
+
+        buttonCreator(SMSwitcher,
+                "Tetris\\data\\images\\SMSwitcherIcon2.png",
+                "Tetris\\data\\images\\SMSwitcherIcon.png",
+                gamePanel.isShadowMode(),
+                "shadowModify"
+        );
+
+        buttonCreator(pause,
+                "Tetris\\data\\images\\pause.png",
+                "Tetris\\data\\images\\play.png",
+                gamePanel.isPause(),
+                "pause"
+        );
 
         buttonPanel.setBackground(new Color(66, 66, 66));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        buttonPanel.setLayout(new GridLayout(0, 3, 0, 30));
+        buttonPanel.add(pause);
         buttonPanel.add(mute);
+        buttonPanel.add(SMSwitcher);
 
         gridPanel.setLayout(new GridLayout(3, 0, 5, 0));
         gridPanel.setBackground(new Color(66, 66, 66));
         gridPanel.add(score);
         gridPanel.add(highScore);
-        gridPanel.add(level);
+        gridPanel.add(levelChoser);
 
         borderPanel1.setLayout(new BorderLayout());
         borderPanel1.setBackground(new Color(66, 66, 66));
         borderPanel1.add(gridPanel, "North");
-        borderPanel1.add(timerLabel, "Center");
+        borderPanel1.add(timerLabel, "South");
 
         borderPanel.setLayout(new GridLayout(3, 0, 0, 30));
         borderPanel.setBackground(new Color(66, 66, 66));
         borderPanel.add(borderPanel1);
         borderPanel.add(futureFigures);
-        borderPanel.add(mute);
+        borderPanel.add(buttonPanel);
 
         leftPanel.setLayout(new FlowLayout());
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 30));
@@ -172,7 +246,7 @@ class Window extends JFrame {
         //---------------------------POST LOGIC-----------------------------
         gamePanel.scoreEditor(score);
         gamePanel.highScoreEditor(highScore);
-        gamePanel.setLevel(level);
+        gamePanel.setLevel(levelChoser);
         gamePanel.setFutureFigures(futureFigures);
         gamePanel.highScoreLogic();
         observer.start();
@@ -188,30 +262,17 @@ class Window extends JFrame {
         if (gamePanel.getHighScore() > 9999) {
             setSize(700 + highScore.getText().substring(11,
                     highScore.getText().length() - 1).length() * 10, 726);
-        }
-        else {
+        } else {
             setSize(700 + 40, 726);
         }
         setUndecorated(false);
         setResizable(false);
         setVisible(true);
         setIconImage(iconImage);
+
         gamePanel.requestFocus();
-
-//        try {
-//            Robot rb = new Robot();
-//            rb.keyPress(KeyEvent.VK_SPACE);
-//            rb.keyRelease(KeyEvent.VK_SPACE);
-//        } catch (AWTException ignored) {
-//        }
         //----------------------------/FRAME--------------------------------
-
-
     }
-
-
-    public static void main(final String[] args) {
-        new Window();
-    }
+    public static void main(final String[] args) {new Window();}
 }
 
