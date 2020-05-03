@@ -50,7 +50,7 @@ class Window extends JFrame {
     };
     //------------------------/INITIALIZATION---------------------------
 
-    private void basicButton(JButton name){
+    private void buttonCreator(JButton name) {
         name.setContentAreaFilled(false);
         name.setFocusPainted(false);
         name.setOpaque(true);
@@ -59,49 +59,13 @@ class Window extends JFrame {
     }
 
     private void buttonCreator(JButton name,
-                               String state1IconPath,
-                               String state2IconPath,
-                               boolean gamePanelGetter,
                                String methodName) {
-        ImageIcon state1 = new ImageIcon(new ImageIcon(state1IconPath).getImage().
-                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
-        ImageIcon state2 = new ImageIcon(new ImageIcon(state2IconPath).getImage().
-                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
-
-        name.setIcon(state2);
         name.setSize(100, 100);
         name.addActionListener(e -> {
-            if (gamePanelGetter)
-                name.setIcon(state1);
-            else
-                name.setIcon(state2);
-            try {
-                gamePanel.triggerAction(methodName);
-            } catch (IllegalAccessException illegalAccessException) {
-                illegalAccessException.printStackTrace();
-            }
+            gamePanel.triggerAction(methodName);
             gamePanel.requestFocus();
         });
-        basicButton(name);
-    }
-
-    private void buttonCreator(JButton name,
-                               String stateIconPath,
-                               boolean gamePanelGetter,
-                               String methodName) {
-        ImageIcon state1 = new ImageIcon(new ImageIcon(stateIconPath).getImage().
-                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
-
-        name.setSize(100, 100);
-        name.addActionListener(e -> {
-            try {
-                gamePanel.triggerAction(methodName);
-            } catch (IllegalAccessException illegalAccessException) {
-                illegalAccessException.printStackTrace();
-            }
-            gamePanel.requestFocus();
-        });
-        basicButton(name);
+        buttonCreator(name);
     }
 
     private void buttonCreator(JButton name,
@@ -112,10 +76,14 @@ class Window extends JFrame {
                 getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
         ImageIcon state2 = new ImageIcon(new ImageIcon(state2IconPath).getImage().
                 getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
-        if (gamePanelGetter)
+        if (state1IconPath.equals(state2IconPath)) {
             name.setIcon(state1);
-        else
-            name.setIcon(state2);
+        } else {
+            if (gamePanelGetter)
+                name.setIcon(state1);
+            else
+                name.setIcon(state2);
+        }
     }
 
     Window() {
@@ -165,18 +133,27 @@ class Window extends JFrame {
                 timerLabel.setText("Time: 00:00:00");
                 timerLabel.updateUI();
             }
+            
             buttonCreator(mute,
                     "Tetris\\data\\images\\Mute.png",
                     "Tetris\\data\\images\\unMute.png",
                     gamePanel.isMuted());
+
             buttonCreator(SMSwitcher,
                     "Tetris\\data\\images\\SMSwitcherIcon.png",
                     "Tetris\\data\\images\\SMSwitcherIcon2.png",
                     gamePanel.isShadowMode());
+
             buttonCreator(pause,
                     "Tetris\\data\\images\\play.png",
                     "Tetris\\data\\images\\pause.png",
                     gamePanel.isPause());
+
+            buttonCreator(reset,
+                    "Tetris\\data\\images\\reset.png",
+                    "Tetris\\data\\images\\reset.png",
+                    gamePanel.isPause());
+
             if (gamePanel.getHighScore() > 9999)
                 setSize(700 + highScore.getText().substring(11,
                         highScore.getText().length() - 1).length() * 10, 726);
@@ -211,38 +188,28 @@ class Window extends JFrame {
         highScore.setForeground(new Color(222, 222, 222));
 
         buttonCreator(mute,
-                "Tetris\\data\\images\\Mute.png",
-                "Tetris\\data\\images\\unMute.png",
-                gamePanel.isMuted(),
                 "mute"
         );
 
         buttonCreator(SMSwitcher,
-                "Tetris\\data\\images\\SMSwitcherIcon2.png",
-                "Tetris\\data\\images\\SMSwitcherIcon.png",
-                gamePanel.isShadowMode(),
                 "shadowModify"
         );
 
         buttonCreator(pause,
-                "Tetris\\data\\images\\pause.png",
-                "Tetris\\data\\images\\play.png",
-                gamePanel.isPause(),
                 "pause"
         );
 
         buttonCreator(reset,
-                "Tetris\\data\\images\\reset.png",
-                gamePanel.isReset(),
                 "reset"
         );
 
         buttonPanel.setBackground(new Color(66, 66, 66));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
-        buttonPanel.setLayout(new GridLayout(0, 3, 0, 30));
+        buttonPanel.setLayout(new GridLayout(0, 4, 0, 30));
         buttonPanel.add(pause);
         buttonPanel.add(mute);
         buttonPanel.add(SMSwitcher);
+        buttonPanel.add(reset);
 
         gridPanel.setLayout(new GridLayout(3, 0, 5, 0));
         gridPanel.setBackground(new Color(66, 66, 66));
@@ -304,6 +271,9 @@ class Window extends JFrame {
         gamePanel.requestFocus();
         //----------------------------/FRAME--------------------------------
     }
-    public static void main(final String[] args) {new Window();}
+
+    public static void main(final String[] args) {
+        new Window();
+    }
 }
 

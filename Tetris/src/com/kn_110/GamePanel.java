@@ -77,6 +77,7 @@ public class GamePanel extends JPanel implements ActionListener {
         addKeyListener(new pauseGameOver());
 
         scale = 30;
+        shadowMode = true;
         matrixH = getHeight() / scale;
         matrixW = getWidth() / scale;
         initGame();
@@ -144,8 +145,6 @@ public class GamePanel extends JPanel implements ActionListener {
         lost = false;
         inited = true;
         muted = false;
-        shadowMode = true;
-
         delay = 400;
 
         matrix = new String[matrixH];
@@ -165,7 +164,6 @@ public class GamePanel extends JPanel implements ActionListener {
         if (level.getItemCount() == 8) level.setSelectedIndex(7);
 
         timer = new Timer(delay, this);
-//        timer.start();
         if (!reset) setPaused();
         else timer.start();
     }
@@ -213,10 +211,9 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void setReset() {
-        timer.stop();
         reset = true;
+        timer.stop();
         initGame();
-
     }
 
     public void shadowModify() {
@@ -255,7 +252,7 @@ public class GamePanel extends JPanel implements ActionListener {
         timer.setDelay(50 * levelInt);
     }
 
-    public void triggerAction(String name) throws IllegalAccessException {
+    public void triggerAction(String name) {
         switch (name) {
             case "mute":
                 mute();
@@ -269,8 +266,6 @@ public class GamePanel extends JPanel implements ActionListener {
             case "reset":
                 setReset();
                 break;
-            default:
-                throw new IllegalAccessException("Not a function name");
         }
     }
     //-------------------/PUBLIC--------------------
@@ -709,15 +704,17 @@ public class GamePanel extends JPanel implements ActionListener {
             if (!lost) {
                 // mute option
                 if (e.getKeyCode() == KeyEvent.VK_M) {
-                    muted = !muted;
+                    triggerAction("mute");
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
-                    shadowMode = !shadowMode;
-                    resetShadowFigure();
+                    triggerAction("shadowModify");
+                }
+                if (e.getKeyCode() == KeyEvent.VK_R) {
+                    triggerAction("reset");
                 }
                 if (!pause) {
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE || e.getKeyCode() == KeyEvent.VK_TAB) {
-                        setPaused();
+                        triggerAction("pause");
                     }
 
                 } else {
@@ -730,9 +727,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
 
-                if (e.getKeyCode() == KeyEvent.VK_R) {
-                    setReset();
-                }
 
             } else {
                 // game over logic

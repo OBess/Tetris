@@ -89,7 +89,7 @@ public class FutureFigures extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(new Color(66,66,66));
-        g.fillRect(0,0,1000,1000);
+        g.fillRect(0,0,100,10);
         paintFigure(g);
     }
     //---------/IMPLEMENTED AND EXTENDED--------
