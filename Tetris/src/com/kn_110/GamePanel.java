@@ -167,6 +167,7 @@ public class GamePanel extends JPanel implements ActionListener {
         timer = new Timer(delay, this);
 //        timer.start();
         if (!reset) setPaused();
+        else timer.start();
     }
     //-------------------/INI---------------------
 
@@ -200,8 +201,22 @@ public class GamePanel extends JPanel implements ActionListener {
         muted = !muted;
     }
 
-    public void pause() {
-        pause = !pause;
+    public void setPaused() {
+        if (!pause) {
+            pause = true;
+            timer.stop();
+        } else {
+            pause = false;
+            timer.start();
+        }
+        repaint();
+    }
+
+    public void setReset() {
+        timer.stop();
+        reset = true;
+        initGame();
+
     }
 
     public void shadowModify() {
@@ -249,10 +264,10 @@ public class GamePanel extends JPanel implements ActionListener {
                 shadowModify();
                 break;
             case "pause":
-                if (!pause)
-                    setPaused();
-                else
-                    setUnPaused();
+                setPaused();
+                break;
+            case "reset":
+                setReset();
                 break;
             default:
                 throw new IllegalAccessException("Not a function name");
@@ -260,8 +275,8 @@ public class GamePanel extends JPanel implements ActionListener {
     }
     //-------------------/PUBLIC--------------------
 
-
     //------------------PAINT BLOCK------------------
+
     private void paintGrid(Graphics g) {
         for (int i = 0; i < matrixH; i++) {
             for (int j = 0; j < matrixW; j++) {
@@ -373,10 +388,11 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
     }
+
     //------------------/PAINT BLOCK-----------------
 
-
     //------------------LOGIC BLOCK------------------
+
     private void initMatrix() {
         for (int i = 0; i < matrixH; i++) {
             matrix[i] = " ";
@@ -395,9 +411,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void remBlock() {
-        for (int i = 0; i < matrixH; i++) {
-            copyMatrix[i] = matrix[i];
-        }
+        if (matrixH >= 0) System.arraycopy(matrix, 0, copyMatrix, 0, matrixH);
     }
 
     private void visualizeBlock() {
@@ -660,18 +674,6 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
     }
-
-    private void setPaused() {
-        pause = true;
-        timer.stop();
-        repaint();
-    }
-
-    private void setUnPaused() {
-        pause = false;
-        timer.start();
-        repaint();
-    }
     //------------------/LOGIC BLOCK-----------------
 
 
@@ -723,15 +725,13 @@ public class GamePanel extends JPanel implements ActionListener {
                     for (int i = 0; i < allKeyCodes.length; i++) {
                         allKeyCodes[i] = i + 1;
                         if (e.getKeyCode() == allKeyCodes[i]) {
-                            setUnPaused();
+                            setPaused();
                         }
                     }
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_R) {
-                    timer.stop();
-                    reset = true;
-                    initGame();
+                    setReset();
                 }
 
             } else {

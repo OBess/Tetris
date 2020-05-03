@@ -25,6 +25,7 @@ class Window extends JFrame {
     private final JButton mute;
     private final JButton SMSwitcher;
     private final JButton pause;
+    private final JButton reset;
 
     private final JComboBox levelChoser;
 
@@ -48,6 +49,14 @@ class Window extends JFrame {
             "Level: 1"
     };
     //------------------------/INITIALIZATION---------------------------
+
+    private void basicButton(JButton name){
+        name.setContentAreaFilled(false);
+        name.setFocusPainted(false);
+        name.setOpaque(true);
+        name.setBackground(new Color(66, 66, 66));
+        name.setBorder(null);
+    }
 
     private void buttonCreator(JButton name,
                                String state1IconPath,
@@ -73,11 +82,26 @@ class Window extends JFrame {
             }
             gamePanel.requestFocus();
         });
-        name.setContentAreaFilled(false);
-        name.setFocusPainted(false);
-        name.setOpaque(true);
-        name.setBackground(new Color(66, 66, 66));
-        name.setBorder(null);
+        basicButton(name);
+    }
+
+    private void buttonCreator(JButton name,
+                               String stateIconPath,
+                               boolean gamePanelGetter,
+                               String methodName) {
+        ImageIcon state1 = new ImageIcon(new ImageIcon(stateIconPath).getImage().
+                getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH));
+
+        name.setSize(100, 100);
+        name.addActionListener(e -> {
+            try {
+                gamePanel.triggerAction(methodName);
+            } catch (IllegalAccessException illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            }
+            gamePanel.requestFocus();
+        });
+        basicButton(name);
     }
 
     private void buttonCreator(JButton name,
@@ -114,6 +138,7 @@ class Window extends JFrame {
         mute = new JButton();
         SMSwitcher = new JButton();
         pause = new JButton();
+        reset = new JButton();
 
         levelChoser = new JComboBox(levelChoserCoices);
         levelChoser.setSelectedIndex(7);
@@ -204,6 +229,12 @@ class Window extends JFrame {
                 "Tetris\\data\\images\\play.png",
                 gamePanel.isPause(),
                 "pause"
+        );
+
+        buttonCreator(reset,
+                "Tetris\\data\\images\\reset.png",
+                gamePanel.isReset(),
+                "reset"
         );
 
         buttonPanel.setBackground(new Color(66, 66, 66));
