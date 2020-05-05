@@ -460,34 +460,6 @@ public class GamePanel extends JPanel implements ActionListener {
             figure.setMatrixY(figure.getMatrixY() + 1);
     }
 
-    private void moveShadowY() {
-        boolean moveUp = false;
-        for (int i = 0; i < figureShadow.getHeightFigure(); i++) {
-            for (int j = 0; j < figureShadow.getFigure()[i + figureShadow.getMatrixRotate()].length(); j++) {
-                if (figureShadow.getFigure()[i + figureShadow.getMatrixRotate()].charAt(j) != ' ') {
-                    if (i + figureShadow.getMatrixY() + 1 < matrixH) {
-                        if (matrix[i + figureShadow.getMatrixY() + 1].charAt(j + figureShadow.getMatrixX()) != ' ') {
-                            moveUp = true;
-                            if (i + 1 < figureShadow.getHeightFigure())
-                                if (figureShadow.getFigure()[i + figureShadow.getMatrixRotate() + 1].charAt(j) != ' ')
-                                    moveUp = false;
-                        }
-                    } else
-                        moveUp = true;
-                }
-
-                if (moveUp)
-                    break;
-            }
-            if (moveUp)
-                break;
-        }
-        if (moveUp) {
-            fallShadow = false;
-        } else
-            figureShadow.setMatrixY(figureShadow.getMatrixY() + 1);
-    }
-
     private void moveX(int dir) {
         boolean moveBack = false;
         for (int i = 0; i < figure.getHeightFigure(); i++) {
@@ -624,6 +596,34 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             skip = false;
         }
+    }
+
+    private void moveShadowY() {
+        boolean moveUp = false;
+        for (int i = 0; i < figureShadow.getHeightFigure(); i++) {
+            for (int j = 0; j < figureShadow.getFigure()[i + figureShadow.getMatrixRotate()].length(); j++) {
+                if (figureShadow.getFigure()[i + figureShadow.getMatrixRotate()].charAt(j) != ' ') {
+                    if (i + figureShadow.getMatrixY() + 1 < matrixH) {
+                        if (matrix[i + figureShadow.getMatrixY() + 1].charAt(j + figureShadow.getMatrixX()) != ' ') {
+                            moveUp = true;
+                            if (i + 1 < figureShadow.getHeightFigure())
+                                if (figureShadow.getFigure()[i + figureShadow.getMatrixRotate() + 1].charAt(j) != ' ')
+                                    moveUp = false;
+                        }
+                    } else
+                        moveUp = true;
+                }
+
+                if (moveUp)
+                    break;
+            }
+            if (moveUp)
+                break;
+        }
+        if (moveUp) {
+            fallShadow = false;
+        } else
+            figureShadow.setMatrixY(figureShadow.getMatrixY() + 1);
     }
 
     private void levelOutputLogic() {
