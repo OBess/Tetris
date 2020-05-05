@@ -12,7 +12,6 @@ public class FutureFigures extends JPanel {
 
     //--------------CONSTRUCTOR----------------
     FutureFigures() {
-//        setBackground(Color.BLACK);
         setBackground(new Color(66, 66, 66));
     }
     //--------------/CONSTRUCTOR----------------

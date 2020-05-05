@@ -2,7 +2,6 @@ package com.kn_110;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 // Interface Class
 class Window extends JFrame {
@@ -35,6 +34,10 @@ class Window extends JFrame {
     private final Timer timer;
     private final Timer observer;
 
+    private final Color background;
+    private final Color foregroundWHITE;
+    private final Color foregroundGRAY;
+
     private int tm = 0;
     private int iconSize = 35;
     private int iconSize2 = 50;
@@ -54,7 +57,7 @@ class Window extends JFrame {
         name.setContentAreaFilled(false);
         name.setFocusPainted(false);
         name.setOpaque(true);
-        name.setBackground(new Color(66, 66, 66));
+        name.setBackground(background);
         name.setBorder(null);
     }
 
@@ -113,6 +116,10 @@ class Window extends JFrame {
 
         icon = new ImageIcon("Tetris\\data\\images\\icon.png");
         iconImage = icon.getImage();
+
+        background = new Color(65,65,65);
+        foregroundWHITE = Color.WHITE;
+        foregroundGRAY = new Color(135, 135, 135, 255);
         //------------------------/NEW OBJECTS---------------------------
 
 
@@ -133,7 +140,7 @@ class Window extends JFrame {
                 timerLabel.setText("Time: 00:00:00");
                 timerLabel.updateUI();
             }
-            
+
             buttonCreator(mute,
                     "Tetris\\data\\images\\Mute.png",
                     "Tetris\\data\\images\\unMute.png",
@@ -163,17 +170,18 @@ class Window extends JFrame {
         });
 
         timerLabel.setText("Time: 00:00:00");
-        timerLabel.setForeground(new Color(135, 135, 135, 255));
+        timerLabel.setForeground(foregroundGRAY);
         timerLabel.setFont(new Font("Dialog", Font.BOLD, 20));
         timerLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         level.setText("Level: 1");
-        level.setForeground(new Color(135, 135, 135, 255));
+        level.setForeground(foregroundGRAY);
         level.setFont(new Font("Dialog", Font.BOLD, 20));
         level.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         levelChoser.setFont(new Font("Dialog", Font.BOLD, 20));
-        levelChoser.setAlignmentX(LEFT_ALIGNMENT);
+        levelChoser.setForeground(foregroundWHITE);
+        levelChoser.setBackground(background);
         levelChoser.addActionListener(e -> {
             gamePanel.requestFocus();
             gamePanel.setLevel(levelChoser.getSelectedIndex() + 1);
@@ -181,7 +189,7 @@ class Window extends JFrame {
 
         score.setText("Score: 0");
         score.setFont(new Font("Dialog", Font.BOLD, 20));
-        score.setForeground(new Color(255, 255, 255));
+        score.setForeground(foregroundWHITE);
 
         highScore.setText("High Score: 0");
         highScore.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -203,7 +211,7 @@ class Window extends JFrame {
                 "reset"
         );
 
-        buttonPanel.setBackground(new Color(66, 66, 66));
+        buttonPanel.setBackground(background);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
         buttonPanel.setLayout(new GridLayout(0, 4, 0, 30));
         buttonPanel.add(pause);
@@ -212,30 +220,30 @@ class Window extends JFrame {
         buttonPanel.add(reset);
 
         gridPanel.setLayout(new GridLayout(3, 0, 5, 0));
-        gridPanel.setBackground(new Color(66, 66, 66));
+        gridPanel.setBackground(background);
         gridPanel.add(score);
         gridPanel.add(highScore);
         gridPanel.add(levelChoser);
 
         borderPanel1.setLayout(new BorderLayout());
-        borderPanel1.setBackground(new Color(66, 66, 66));
+        borderPanel1.setBackground(background);
         borderPanel1.add(gridPanel, "North");
         borderPanel1.add(timerLabel, "South");
 
         borderPanel.setLayout(new GridLayout(3, 0, 0, 30));
-        borderPanel.setBackground(new Color(66, 66, 66));
+        borderPanel.setBackground(background);
         borderPanel.add(borderPanel1);
         borderPanel.add(futureFigures);
         borderPanel.add(buttonPanel);
 
         leftPanel.setLayout(new FlowLayout());
         leftPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 30));
-        leftPanel.setBackground(new Color(66, 66, 66));
+        leftPanel.setBackground(background);
         leftPanel.add(borderPanel, "Left");
 
         masterPanel.setLayout(new BorderLayout());
         masterPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        masterPanel.setBackground(new Color(66, 66, 66));
+        masterPanel.setBackground(background);
         masterPanel.add(leftPanel, "West");
         masterPanel.add(gamePanel, "Center");
         //------------------------------/UI---------------------------------
@@ -276,4 +284,3 @@ class Window extends JFrame {
         new Window();
     }
 }
-

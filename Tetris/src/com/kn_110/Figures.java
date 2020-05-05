@@ -101,7 +101,6 @@ public class Figures {
                 futureFigure = Z;
                 break;
         }
-//       figure = I;
     }
 
     public void reset() {
@@ -135,7 +134,7 @@ public class Figures {
 
 
     //----------------BLOCKS---------------------
-    private String[] I = {
+    private final String[] I = {
             " r  ",
             " r  ",
             " r  ",
@@ -147,7 +146,7 @@ public class Figures {
             "    "
     };
 
-    private String[] J = {
+    private final String[] J = {
             "g   ",
             "ggg ",
             "    ",
@@ -169,7 +168,7 @@ public class Figures {
             "    "
     };
 
-    private String[] L = {
+    private final String[] L = {
 
             "  v ",
             "vvv ",
@@ -192,14 +191,14 @@ public class Figures {
             "    "
     };
 
-    private String[] O = {
+    private final String[] O = {
             "  yy",
             "  yy",
             "    ",
             "    "
     };
 
-    private String[] S = {
+    private final String[] S = {
             "  bb",
             " bb ",
             "    ",
@@ -211,7 +210,7 @@ public class Figures {
             "    "
     };
 
-    private String[] T = {
+    private final String[] T = {
             "  p ",
             " ppp",
             "    ",
@@ -233,7 +232,7 @@ public class Figures {
             "    "
     };
 
-    private String[] Z = {
+    private final String[] Z = {
             " hh ",
             "  hh",
             "    ",

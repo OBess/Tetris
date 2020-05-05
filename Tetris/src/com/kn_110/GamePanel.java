@@ -211,9 +211,11 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void setReset() {
-        reset = true;
-        timer.stop();
-        initGame();
+        if(!pause) {
+            reset = true;
+            timer.stop();
+            initGame();
+        }
     }
 
     public void shadowModify() {
